@@ -1,0 +1,4 @@
+DataMagus
+=========
+
+Database designing tool.
