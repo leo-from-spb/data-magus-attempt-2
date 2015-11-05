@@ -4,8 +4,6 @@
 *.ear
 *.zip
 
-*.iml
-
 lib
 out
 dist
