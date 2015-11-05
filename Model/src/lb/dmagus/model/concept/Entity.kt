@@ -5,12 +5,24 @@ import lb.dmagus.model.core.Node
 /**
  * @author Leonid Bushuev from JetBrains
  **/
-public class Entity : ConceptElement()
+public class Entity : ConceptElement
 {
 
-    var area: SubjectArea? = null;
+    //// STATE \\\\
 
-    override val parentNode: Node?
+    var area: SubjectArea;
+
+
+
+
+    //// LIFE CYCLE \\\\
+
+    constructor(area: SubjectArea) : super(area.model)
+    {
+        this.area = area
+    }
+
+    override val parentNode: Node
         get() = area;
 
 }

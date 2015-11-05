@@ -6,8 +6,6 @@ package lb.dmagus.model.core
 public interface Node
 {
 
-    val model: Model?;
-
     val parentNode: Node?;
 
 }

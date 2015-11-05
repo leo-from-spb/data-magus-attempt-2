@@ -6,9 +6,6 @@ package lb.dmagus.model.core
 public interface TopElement : Node
 {
 
-    override val model: Model?;
-
-    override val parentNode: Node?
-        get() {return model};
+    override val parentNode: Model
 
 }

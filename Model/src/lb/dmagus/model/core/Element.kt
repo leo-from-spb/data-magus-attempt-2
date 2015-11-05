@@ -5,44 +5,46 @@ package lb.dmagus.model.core
  **/
 public abstract class Element : Node
 {
-
     //// STATE \\\\
 
     /**
      * The model this element belongs to.
      * Null means this element is not attached to a model.
      */
-    override var model: Model? = null
-        private set;
+    @JvmField
+    val model: Model;
 
     /**
      * Synthetic identifier.
      * Zero means this element is not attached to a model.
      */
-    var id: Int = 0
+    var id: Int
         private set;
+
 
 
     //// LIFE CYCLE METHODS \\\\
 
-    fun attach(model: Model)
+    constructor(model: Model)
     {
-        assert(this.model == null);
-        this.model = model;
-        this.id = model.nextId();
-        model.registerElement(this);
+        this.model = model
+        this.id = model.nextId()
+        model.registerElement(this)
     }
 
-    fun detach()
+    fun drop()
     {
-        val m = model;
-        if (m != null)
-        {
-            m.deregisterElement(this);
-            model = null;
-        }
+        dropInnerContent();
+        model.deregisterElement(this)
+        id = Int.MIN_VALUE;
     }
 
+    open fun dropInnerContent()
+    {
+        // here do nothing, inheritors have something
+    }
+
+    val dropped: Boolean get() = id == Int.MIN_VALUE;
 
 
 

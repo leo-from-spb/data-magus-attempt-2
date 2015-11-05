@@ -31,8 +31,6 @@ public class Model : Node
     fun registerElement(element: Element)
     {
         val id = element.id;
-        assert (element.model != null) {"Model: Registering element: attempted to register an element but the model is not specified"}
-        assert (element.model == this) {"Model: Registering element: attempted to register an element from an alien model"}
         assert (id > 0) {"Model: Registering element: id must be greater than zero but got $id"};
         val was =
             elements.putIfAbsent(id, element);
@@ -61,12 +59,8 @@ public class Model : Node
 
     //// TREE \\\\
 
-    override val model: Model?
-        get() = this;
-
     override val parentNode: Node?
         get() = null;
-
 
 
 }

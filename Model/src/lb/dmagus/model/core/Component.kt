@@ -5,8 +5,19 @@ package lb.dmagus.model.core
  *
  * @author Leonid Bushuev from JetBrains
  **/
-public abstract class Component : Element()
+public abstract class Component : Element
 {
+    //// LIFE CYCLE \\\\
+
+    constructor(model: Model) : super(model)
+
+    override fun dropInnerContent()
+    {
+        name = null
+        super.dropInnerContent()
+    }
+
+
     //// NAME \\\\
 
     /**
@@ -28,7 +39,7 @@ public abstract class Component : Element()
 
             if (nameId != null)
             {
-                model?.deregisterName(this);
+                model.deregisterName(this);
                 nameId = null;
                 field = null;
             }
@@ -36,12 +47,14 @@ public abstract class Component : Element()
             if (newName != null) {
                 field = newName;
                 nameId = NameId(newName, id);
-                model?.registerName(this);
+                model.registerName(this);
             }
         }
 
 
+    //// TREE \\\\
 
+    abstract override val parentNode: Node;
 
 }
 
