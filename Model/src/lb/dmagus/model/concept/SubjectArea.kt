@@ -14,4 +14,12 @@ public class SubjectArea : ConceptElement, TopElement
     override val parentNode: Model
         get() = model;
 
+
+    var prefix: String? = null
+        set(newPrefix) {
+            if (field == newPrefix) return
+            field = newPrefix
+        }
+
+
 }

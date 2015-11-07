@@ -63,4 +63,11 @@ public class Model : Node
         get() = null;
 
 
+
+    //// STATISTICS \\\\
+
+    val elementCount: Int
+        get() = elements.size
+
+
 }
