@@ -1,0 +1,11 @@
+SubjectArea: ConceptElement @ Model + TopSpace
+    .prefix: String? = null
+
+Domain: ConceptElement @ SubjectArea
+    .abstract: Boolean = false
+
+Entity: ConceptElement @ SubjectArea
+
+Attribute: ConceptElement @ Entity
+    .abstract: Boolean = false
+    .autoincrement: Boolean = false

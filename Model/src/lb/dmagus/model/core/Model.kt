@@ -64,6 +64,14 @@ public class Model : Node
 
 
 
+    //// TRANSACTIONS \\\\
+
+    fun modifying(elem: Element)
+    {
+
+    }
+
+
     //// STATISTICS \\\\
 
     val elementCount: Int

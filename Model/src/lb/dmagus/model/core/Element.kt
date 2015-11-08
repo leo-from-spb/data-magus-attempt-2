@@ -23,6 +23,8 @@ public abstract class Element : Node
 
 
 
+
+
     //// LIFE CYCLE METHODS \\\\
 
     constructor(model: Model)
@@ -47,6 +49,10 @@ public abstract class Element : Node
     val dropped: Boolean get() = id == Int.MIN_VALUE;
 
 
+    fun modifying()
+    {
+        model.modifying(this)
+    }
 
 
     //// LEGACY FUNCTIONS \\\\
