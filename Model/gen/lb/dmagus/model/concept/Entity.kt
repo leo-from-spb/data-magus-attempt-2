@@ -33,8 +33,7 @@ public open class Entity : ConceptElement
 
     // -Families
 
-
-    // #PROPERTIES
+    
 
 }
 

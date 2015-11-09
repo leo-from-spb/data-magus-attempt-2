@@ -34,10 +34,10 @@ private fun generateFile(f: MetaFile, mm: MetaModel, templates: Map<String, Stri
 
 
     generateFamilies(f, mm, templates, b)
+    generateProperties(f, mm, templates, b)
 
     val filePath = baseTargetDir.resolve(f.pack).resolve(f.klass+".kt")
     Files.write(filePath, b.toString().toByteArray())
-
 }
 
 fun generateFamilies(f: MetaFile, mm: MetaModel, templates: Map<String, String>, b: StringBuilder)
@@ -72,6 +72,34 @@ fun generateFamilies(f: MetaFile, mm: MetaModel, templates: Map<String, String>,
 
     b replace ("|FAMILIES|" to ba.toString())
     b replace ("|FAMILY_LIST|" to famList)
+}
+
+
+fun generateProperties(f: MetaFile, mm: MetaModel, templates: Map<String, String>, b: StringBuilder)
+{
+    if (f.properties.isEmpty())
+    {
+        b removeSection "Properties"
+        return
+    }
+
+    val template = templates["property"]!!
+
+    val ba: StringBuilder = StringBuilder()
+    ba.append('\n')
+
+    for (p in f.properties)
+    {
+        val pf = StringBuilder(template)
+
+        pf replace ("|PROP_NAME|"    to p.name)
+        pf replace ("|PROP_TYPE|"    to p.type)
+        pf replace ("|PROP_DEFAULT|" to p.default)
+
+        ba.append(pf).append('\n')
+    }
+
+    b replace ("|PROPERTIES|" to ba.toString())
 }
 
 

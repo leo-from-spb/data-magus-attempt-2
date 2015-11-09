@@ -36,8 +36,11 @@ public OPEN class CLASS : BASE INTERFACES
 
     // -Families
 
+    // +Properties
 
-    // #PROPERTIES
+    |PROPERTIES|
+
+    // -Properties
 
 }
 

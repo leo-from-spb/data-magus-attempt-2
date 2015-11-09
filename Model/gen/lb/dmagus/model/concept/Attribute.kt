@@ -24,8 +24,28 @@ public open class Attribute : ConceptElement
 
     
 
+    // +Properties
 
-    // #PROPERTIES
+    
+
+    var abstract: Boolean = false
+        set (value) {
+            if (field == value) return
+            modifying()
+            field = value
+        }
+
+
+    var autoincrement: Boolean = false
+        set (value) {
+            if (field == value) return
+            modifying()
+            field = value
+        }
+
+
+
+    // -Properties
 
 }
 

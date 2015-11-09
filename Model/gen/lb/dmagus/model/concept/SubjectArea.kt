@@ -32,8 +32,7 @@ public open class SubjectArea : ConceptElement , TopSpace
 
     // -Families
 
-
-    // #PROPERTIES
+    
 
 }
 

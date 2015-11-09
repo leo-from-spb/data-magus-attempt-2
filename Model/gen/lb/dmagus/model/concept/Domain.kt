@@ -24,8 +24,20 @@ public open class Domain : ConceptElement
 
     
 
+    // +Properties
 
-    // #PROPERTIES
+    
+
+    var abstract: Boolean = false
+        set (value) {
+            if (field == value) return
+            modifying()
+            field = value
+        }
+
+
+
+    // -Properties
 
 }
 
