@@ -22,10 +22,10 @@ public open class Attribute : ConceptElement
 
     
 
+    
 
 
-
-
+    // #PROPERTIES
 
 }
 

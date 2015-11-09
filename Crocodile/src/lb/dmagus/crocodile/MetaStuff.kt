@@ -1,12 +1,13 @@
 package lb.dmagus.crocodile
 
 import kotlin.text.Regex
+import kotlin.text.RegexOption
 
 
 fun regex(r: String): Regex
 {
     val re = r.replace("  ", "\\s+").replace(" ", "\\s*")
-    return Regex(re)
+    return Regex(re, RegexOption.IGNORE_CASE)
 }
 
 

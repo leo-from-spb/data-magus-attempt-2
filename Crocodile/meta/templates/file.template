@@ -28,10 +28,16 @@ public OPEN class CLASS : BASE INTERFACES
 
     // -TopSpace
 
+    // +Families
+
+    |FAMILIES|
+
+    val families = arrayOf(|FAMILY_LIST|)
+
+    // -Families
 
 
-
-
+    // #PROPERTIES
 
 }
 

@@ -1,0 +1,1 @@
+    public val |FAM_NAMES|: |FAM_CLASS|Family = |FAM_CLASS|Family(this)

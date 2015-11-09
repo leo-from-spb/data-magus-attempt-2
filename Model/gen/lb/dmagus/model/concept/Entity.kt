@@ -22,10 +22,19 @@ public open class Entity : ConceptElement
 
     
 
+    // +Families
+
+    
+    public val attributes: AttributeFamily = AttributeFamily(this)
 
 
 
+    val families = arrayOf(attributes)
 
+    // -Families
+
+
+    // #PROPERTIES
 
 }
 

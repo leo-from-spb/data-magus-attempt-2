@@ -1,10 +1,13 @@
 SubjectArea: ConceptElement @ Model + TopSpace
+    +Domain
+    +Entity
     .prefix: String? = null
 
 Domain: ConceptElement @ SubjectArea
     .abstract: Boolean = false
 
 Entity: ConceptElement @ SubjectArea
+    +Attribute
 
 Attribute: ConceptElement @ Entity
     .abstract: Boolean = false

@@ -1,5 +1,6 @@
 package lb.dmagus.crocodile
 
+import lb.dmagus.util.plural
 import java.nio.file.Files
 
 
@@ -9,11 +10,11 @@ fun generate(mm: MetaModel, templates: Map<String, String>)
 
     for (f in mm.files)
     {
-        generateFile(f, templates)
+        generateFile(f, mm, templates)
     }
 }
 
-private fun generateFile(f: MetaFile, templates: Map<String, String>)
+private fun generateFile(f: MetaFile, mm: MetaModel, templates: Map<String, String>)
 {
     say("\nGenerating file: ${f.pack}/${f.klass}")
 
@@ -30,10 +31,49 @@ private fun generateFile(f: MetaFile, templates: Map<String, String>)
     b replace ("NAME" to f.name)
     b replace ("BASE" to f.base)
 
+
+
+    generateFamilies(f, mm, templates, b)
+
     val filePath = baseTargetDir.resolve(f.pack).resolve(f.klass+".kt")
     Files.write(filePath, b.toString().toByteArray())
 
 }
+
+fun generateFamilies(f: MetaFile, mm: MetaModel, templates: Map<String, String>, b: StringBuilder)
+{
+    if (f.families.isEmpty())
+    {
+        b removeSection "Families"
+        return
+    }
+
+    val template = templates["family"]!!
+
+    val ba: StringBuilder = StringBuilder()
+    ba.append('\n')
+
+    var famList = ""
+
+    for (famClass in f.families)
+    {
+        val fam = mm.classes[famClass]!!
+
+        if (famList.isNotEmpty()) famList += ','
+        famList += fam.name.plural
+
+        val bf = StringBuilder(template)
+
+        bf replace ("|FAM_NAMES|" to fam.name.plural)
+        bf replace ("|FAM_CLASS|" to fam.klass)
+
+        ba.append(bf).append('\n')
+    }
+
+    b replace ("|FAMILIES|" to ba.toString())
+    b replace ("|FAMILY_LIST|" to famList)
+}
+
 
 private fun removeUnneededSections(b: StringBuilder, f: MetaFile)
 {

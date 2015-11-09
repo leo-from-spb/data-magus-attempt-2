@@ -22,10 +22,10 @@ public open class Domain : ConceptElement
 
     
 
+    
 
 
-
-
+    // #PROPERTIES
 
 }
 

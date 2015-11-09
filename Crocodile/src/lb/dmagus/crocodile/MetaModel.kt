@@ -8,7 +8,8 @@ import java.util.*
 class MetaModel
 {
 
-    val files = ArrayList<MetaFile>()
+    val files   = ArrayList<MetaFile>()
+    val classes = TreeMap<String,MetaFile>(String.CASE_INSENSITIVE_ORDER)
 
 }
 
@@ -25,6 +26,7 @@ data class MetaFile
 )
 {
     val interfaces = ArrayList<String>()
+    val families   = ArrayList<String>()
     val properties = ArrayList<MetaProperty>()
 }
 

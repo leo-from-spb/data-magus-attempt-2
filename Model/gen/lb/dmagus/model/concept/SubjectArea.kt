@@ -19,10 +19,21 @@ public open class SubjectArea : ConceptElement , TopSpace
 
     // -TopSpace
 
+    // +Families
+
+    
+    public val domains: DomainFamily = DomainFamily(this)
+
+    public val entities: EntityFamily = EntityFamily(this)
 
 
 
+    val families = arrayOf(domains,entities)
 
+    // -Families
+
+
+    // #PROPERTIES
 
 }
 

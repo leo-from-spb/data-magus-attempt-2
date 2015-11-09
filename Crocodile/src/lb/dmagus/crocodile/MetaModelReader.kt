@@ -11,8 +11,9 @@ import kotlin.text.Regex
 val mDefPattern = Regex("^\\w+\\.mdef$")
 val mTemplatePattern = Regex("^\\w+\\.template$")
 
-val mFilePattern = regex("^(\\w+) : (\\w+) @ (\\w+) ((\\+ (\\w+) )+)?$")
-val mPropPattern = regex("^ \\. (\\w+) : (\\w+) = (\\w+) $")
+val mFilePattern   = regex("^(\\w+) : (\\w+) @ (\\w+) ((\\+ (\\w+) )+)?$")
+val mFamilyPattern = regex("^  \\+ (\\w+) $")
+val mPropPattern   = regex("^  \\. (\\w+) : (\\w+) = (\\w+) $")
 
 
 fun readMetaModel() : MetaModel
@@ -69,16 +70,20 @@ fun readMetaFile(mm: MetaModel, file: Path)
         for (i in k+1..n-1)
         {
             val line = lines[i]
-            if (line[0].isWhitespace()) continue
+            if (!line[0].isWhitespace()) break
+
+            val fm = line match mFamilyPattern
+            if (fm != null) handleFamily(f, fm)
 
             val pm = line match mPropPattern
             if (pm != null) handleProperty(f, pm)
-
         }
 
         mm.files.add(f)
+        mm.classes.put(f.klass, f)
     }
 }
+
 
 fun handleInterfaces(f: MetaFile, interfacesString: String)
 {
@@ -89,6 +94,11 @@ fun handleInterfaces(f: MetaFile, interfacesString: String)
         .forEach { f.interfaces.add(it) }
 }
 
+fun handleFamily(f: MetaFile, pm: MatchResult)
+{
+    val familyName = pm.groups[1]!!.value;
+    f.families.add(familyName)
+}
 
 fun handleProperty(f: MetaFile, m: MatchResult)
 {
@@ -115,7 +125,7 @@ fun readTemplates(): Map<String,String>
     }
 
     val n = templates.size
-    assert(n == 2) {"Too few template files: $n"}
+    assert(n >= 3) {"Too few template files: $n"}
 
     return templates
 }
