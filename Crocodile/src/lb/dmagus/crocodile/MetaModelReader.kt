@@ -55,7 +55,7 @@ fun readMetaFile(mm: MetaModel, file: Path)
         assert(m != null) {"Failed to parse line: $fileLine"}
         m!!
 
-        val f = MetaFile()
+        val f = MetaNode()
 
         val interfacesString = m.groups[4]?.value
         if (interfacesString != null) handleInterfaces(f, interfacesString)
@@ -79,13 +79,13 @@ fun readMetaFile(mm: MetaModel, file: Path)
             if (pm != null) handleProperty(f, pm)
         }
 
-        mm.files.add(f)
+        mm.nodes.add(f)
         mm.classes.put(f.klass, f)
     }
 }
 
 
-fun handleInterfaces(f: MetaFile, interfacesString: String)
+fun handleInterfaces(f: MetaNode, interfacesString: String)
 {
     interfacesString
         .splitToSequence('+')
@@ -94,13 +94,13 @@ fun handleInterfaces(f: MetaFile, interfacesString: String)
         .forEach { f.interfaces.add(it) }
 }
 
-fun handleFamily(f: MetaFile, pm: MatchResult)
+fun handleFamily(f: MetaNode, pm: MatchResult)
 {
     val familyName = pm.groups[1]!!.value;
-    f.families.add(familyName)
+    f.families.add(MetaFamily(familyName))
 }
 
-fun handleProperty(f: MetaFile, m: MatchResult)
+fun handleProperty(f: MetaNode, m: MatchResult)
 {
     val p = MetaProperty( m.groups[1]!!.value,
                           m.groups[2]!!.value,

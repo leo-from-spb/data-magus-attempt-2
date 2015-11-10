@@ -1,5 +1,6 @@
 package lb.dmagus.crocodile
 
+import lb.dmagus.util.plural
 import java.util.*
 
 /**
@@ -8,13 +9,13 @@ import java.util.*
 class MetaModel
 {
 
-    val files   = ArrayList<MetaFile>()
-    val classes = TreeMap<String,MetaFile>(String.CASE_INSENSITIVE_ORDER)
+    val nodes = ArrayList<MetaNode>()
+    val classes = TreeMap<String, MetaNode>(String.CASE_INSENSITIVE_ORDER)
 
 }
 
 
-data class MetaFile
+data class MetaNode
 (
     var pack:        String = "none"    ,
     var open:        String = "open"    ,
@@ -25,10 +26,30 @@ data class MetaFile
     var parentClass: String = "Element"
 )
 {
+    var parent: MetaNode? = null
+
     val interfaces = ArrayList<String>()
-    val families   = ArrayList<String>()
+    val families   = ArrayList<MetaFamily>()
     val properties = ArrayList<MetaProperty>()
+
+    val top: Boolean get() = "TopSpace" in interfaces
+    val leaf: Boolean get() = families.isEmpty()
+    val hasFamilies: Boolean get() = families.isNotEmpty()
+    val hasProperties: Boolean get() = properties.isNotEmpty()
 }
+
+
+data class MetaFamily
+(
+    var klass:  String
+)
+{
+    val name:    String get() = klass.decapitalize()
+    val names:   String get() = name.plural
+    val klasses: String get() = klass.plural
+}
+
+
 
 
 data class MetaProperty

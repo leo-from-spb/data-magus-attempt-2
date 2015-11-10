@@ -7,9 +7,10 @@ fun main(args: Array<String>)
     say("\n\nКрокодил Гена\n");
 
     val mm = readMetaModel()
-    val templates = readTemplates()
 
-    generate(mm, templates)
+    adjustModel(mm)
+
+    generate(mm)
 
     say("\nOk.\n")
 }

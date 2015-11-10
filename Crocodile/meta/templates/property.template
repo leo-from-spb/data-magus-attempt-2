@@ -1,7 +1,0 @@
-
-    var |PROP_NAME|: |PROP_TYPE| = |PROP_DEFAULT|
-        set (value) {
-            if (field == value) return
-            modifying()
-            field = value
-        }
