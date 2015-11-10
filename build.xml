@@ -7,9 +7,11 @@
   <target name="get-libs">
     <mkdir dir="lib/pro"/>
     <mkdir dir="lib/test"/>
+    <mkdir dir="lib/tools"/>
     <get-from-central scope="test" path="junit/junit/4.12/junit-4.12"/>
     <get-from-central scope="test" path="org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3"/>
     <get-from-central scope="test" path="org/assertj/assertj-core/3.2.0/assertj-core-3.2.0"/>
+    <get-from-central scope="tools" path="org/freemarker/freemarker/2.3.23/freemarker-2.3.23"/>
   </target>
 
 
