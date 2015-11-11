@@ -54,7 +54,7 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
     [/#list]
 
     override val families =
-        listOf([#list n.families as f]${f.names}[#if f?has_next], [/#if][/#list])
+        listOf([#list n.families as f]${f.names}[#sep], [/#list])
 
     override val childNodes: Iterable<Node>
         [#if n.families?size = 1]
