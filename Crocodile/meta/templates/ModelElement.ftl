@@ -6,6 +6,8 @@ package lb.dmagus.model.${n.pack}
 import lb.dmagus.model.core.*
 import java.util.concurrent.atomic.AtomicReference
 
+[#-- @formatter:off --]
+
 /**
  * The ${n.name}.
  *
@@ -51,11 +53,24 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
     public val ${f.names}: ${f.klass}Family = ${f.klass}Family(this)
     [/#list]
 
+    override val families =
+        listOf([#list n.families as f]${f.names}[#if f?has_next], [/#if][/#list])
+
+    override val childNodes: Iterable<Node>
+        [#if n.families?size = 1]
+        get() = ${n.families?first.names}
+        [#else]
+        get() = families.flatten()
+        [/#if]
+
 
 [#else]
 
     //// NO FAMILIES \\\\
+    override val families = emptyList<Family<Node,Element>>()
 
+    override val childNodes: Iterable<Node>
+        get() = emptySet()
 
 [/#if]
 
@@ -127,5 +142,9 @@ public class ${n.klass}Family : Family<${n.parent.klass}, ${n.klass}>
         return ${n.name}
     }
 
+    override fun iterator(): Iterator<${n.klass}>
+    {
+        return array.get().iterator();
+    }
 }
 

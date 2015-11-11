@@ -6,6 +6,8 @@ package lb.dmagus.model.core
 public interface Node
 {
 
-    val parentNode: Node?;
+    val parentNode: Node?
+
+    val childNodes: Iterable<Node>
 
 }

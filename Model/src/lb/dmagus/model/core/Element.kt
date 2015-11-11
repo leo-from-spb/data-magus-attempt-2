@@ -55,6 +55,12 @@ public abstract class Element : Node
     }
 
 
+    //// FAMILIES \\\\
+
+    public abstract val families: List<Family<Node,Element>>
+
+
+
     //// LEGACY FUNCTIONS \\\\
 
     override fun toString(): String {

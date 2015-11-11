@@ -7,8 +7,6 @@ import java.io.FileWriter
  * Generates Model Skeleton using Free-Marker templates.
  * @author Leonid Bushuev from JetBrains
  **/
-
-
 fun generate(mm: MetaModel)
 {
 

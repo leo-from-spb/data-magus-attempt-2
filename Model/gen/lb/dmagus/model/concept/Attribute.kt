@@ -1,8 +1,10 @@
 package lb.dmagus.model.concept
 
+import lb.dmagus.model.core.Element
 import lb.dmagus.model.core.Family
 import lb.dmagus.model.core.Node
 import java.util.concurrent.atomic.AtomicReference
+
 
 /**
  * The attribute.
@@ -32,7 +34,10 @@ public open class Attribute : ConceptElement
 
 
     //// NO FAMILIES \\\\
+    override val families = emptyList<Family<Node,Element>>()
 
+    override val childNodes: Iterable<Node>
+        get() = emptySet()
 
 
 
@@ -101,5 +106,9 @@ public class AttributeFamily : Family<Entity, Attribute>
         return attribute
     }
 
+    override fun iterator(): Iterator<Attribute>
+    {
+        return array.get().iterator();
+    }
 }
 

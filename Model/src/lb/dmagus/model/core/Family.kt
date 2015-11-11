@@ -4,9 +4,13 @@ package lb.dmagus.model.core
 /**
  * @author Leonid Bushuev from JetBrains
  **/
-public abstract class Family<out P: Node, out C: Element>
+abstract class Family<out P: Node, out C: Element> : Iterable<C>
 {
     public abstract val owner: P
 
 
+
 }
+
+
+

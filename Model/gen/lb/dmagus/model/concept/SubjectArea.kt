@@ -6,6 +6,7 @@ import lb.dmagus.model.core.Node
 import lb.dmagus.model.core.TopSpace
 import java.util.concurrent.atomic.AtomicReference
 
+
 /**
  * The subjectArea.
  *
@@ -32,6 +33,12 @@ public open class SubjectArea : ConceptElement , TopSpace
 
     public val domains: DomainFamily = DomainFamily(this)
     public val entities: EntityFamily = EntityFamily(this)
+
+    override val families =
+        listOf(domains, entities)
+
+    override val childNodes: Iterable<Node>
+        get() = families.flatten()
 
 
 
@@ -87,5 +94,9 @@ public class SubjectAreaFamily : Family<Model, SubjectArea>
         return subjectArea
     }
 
+    override fun iterator(): Iterator<SubjectArea>
+    {
+        return array.get().iterator();
+    }
 }
 

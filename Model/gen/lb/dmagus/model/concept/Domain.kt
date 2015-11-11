@@ -1,8 +1,10 @@
 package lb.dmagus.model.concept
 
+import lb.dmagus.model.core.Element
 import lb.dmagus.model.core.Family
 import lb.dmagus.model.core.Node
 import java.util.concurrent.atomic.AtomicReference
+
 
 /**
  * The domain.
@@ -32,7 +34,10 @@ public open class Domain : ConceptElement
 
 
     //// NO FAMILIES \\\\
+    override val families = emptyList<Family<Node,Element>>()
 
+    override val childNodes: Iterable<Node>
+        get() = emptySet()
 
 
 
@@ -94,5 +99,9 @@ public class DomainFamily : Family<SubjectArea, Domain>
         return domain
     }
 
+    override fun iterator(): Iterator<Domain>
+    {
+        return array.get().iterator();
+    }
 }
 

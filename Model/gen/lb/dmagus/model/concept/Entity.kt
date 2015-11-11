@@ -4,6 +4,7 @@ import lb.dmagus.model.core.Family
 import lb.dmagus.model.core.Node
 import java.util.concurrent.atomic.AtomicReference
 
+
 /**
  * The entity.
  *
@@ -34,6 +35,12 @@ public open class Entity : ConceptElement
     //// FAMILIES \\\\
 
     public val attributes: AttributeFamily = AttributeFamily(this)
+
+    override val families =
+        listOf(attributes)
+
+    override val childNodes: Iterable<Node>
+        get() = attributes
 
 
 
@@ -89,5 +96,9 @@ public class EntityFamily : Family<SubjectArea, Entity>
         return entity
     }
 
+    override fun iterator(): Iterator<Entity>
+    {
+        return array.get().iterator();
+    }
 }
 

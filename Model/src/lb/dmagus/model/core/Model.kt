@@ -62,7 +62,8 @@ public class Model : Node
     override val parentNode: Node?
         get() = null;
 
-
+    override val childNodes: Iterable<Node>
+        get() = throw UnsupportedOperationException()
 
     //// TRANSACTIONS \\\\
 
