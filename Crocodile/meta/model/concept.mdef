@@ -10,5 +10,6 @@ Entity: ConceptElement @ SubjectArea
     +Attribute
 
 Attribute: ConceptElement @ Entity
+    .domain -> Domain
     .abstract: Boolean = false
     .autoincrement: Boolean = false

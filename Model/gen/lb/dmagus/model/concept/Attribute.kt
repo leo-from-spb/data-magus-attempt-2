@@ -1,8 +1,6 @@
 package lb.dmagus.model.concept
 
-import lb.dmagus.model.core.Element
-import lb.dmagus.model.core.Family
-import lb.dmagus.model.core.Node
+import lb.dmagus.model.core.*
 import java.util.concurrent.atomic.AtomicReference
 
 
@@ -39,6 +37,28 @@ public open class Attribute : ConceptElement
     override val childNodes: Iterable<Node>
         get() = emptySet()
 
+
+
+    
+    //// REFERENCES \\\\
+    
+    
+    private var domainArc: AttributeDomainArc? = null
+    var domain: Domain?
+        get() {
+            return domainArc?.domain
+        }
+        set(value) {
+            val oldArc = domainArc
+            if (oldArc?.domain == value) return
+            modifying()
+            if (oldArc != null) {
+                domainArc = null
+                oldArc.drop()
+            }
+            if (value != null) domainArc = AttributeDomainArc(this,value)
+        }
+    
 
 
 
@@ -111,4 +131,19 @@ public class AttributeFamily : Family<Entity, Attribute>
         return array.get().iterator();
     }
 }
+
+
+
+class AttributeDomainArc (attribute: Attribute, domain: Domain) : Arc<Attribute,Domain> (attribute, domain)
+{
+    val attribute: Attribute get() = source
+    val domain: Domain get() = target
+
+    override fun drop()
+    {
+        source.domain = null
+        super.drop()
+    }
+}
+
 

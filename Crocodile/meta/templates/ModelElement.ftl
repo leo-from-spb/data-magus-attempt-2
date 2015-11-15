@@ -75,6 +75,32 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
 [/#if]
 
 
+[#if n.hasRefs]
+    
+    //// REFERENCES \\\\
+    
+    [#list n.refs as r]
+    
+    private var ${r.refName}Arc: ${n.klass}${r.targetClass}Arc? = null
+    var ${r.refName}: ${r.targetClass}?
+        get() {
+            return ${r.refName}Arc?.${r.refName}
+        }
+        set(value) {
+            val oldArc = ${r.refName}Arc
+            if (oldArc?.${r.refName} == value) return
+            modifying()
+            if (oldArc != null) {
+                ${r.refName}Arc = null
+                oldArc.drop()
+            }
+            if (value != null) ${r.refName}Arc = ${n.klass}${r.targetClass}Arc(this,value)
+        }
+    [/#list]
+    
+[/#if]
+
+
 [#if n.hasProperties]
 
     //// PROPERTIES \\\\
@@ -147,4 +173,21 @@ public class ${n.klass}Family : Family<${n.parent.klass}, ${n.klass}>
         return array.get().iterator();
     }
 }
+
+
+[#list n.refs as r]
+
+class ${n.klass}${r.refNameCap}Arc (${n.name}: ${n.klass}, ${r.refName}: ${r.targetClass}) : Arc<${n.klass},${r.targetClass}> (${n.name}, ${r.refName})
+{
+    val ${n.name}: ${n.klass} get() = source
+    val ${r.refName}: ${r.targetClass} get() = target
+
+    override fun drop()
+    {
+        source.${r.refName} = null
+        super.drop()
+    }
+}
+
+[/#list]
 

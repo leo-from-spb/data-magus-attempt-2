@@ -1,8 +1,6 @@
 package lb.dmagus.model.concept
 
-import lb.dmagus.model.core.Element
-import lb.dmagus.model.core.Family
-import lb.dmagus.model.core.Node
+import lb.dmagus.model.core.*
 import java.util.concurrent.atomic.AtomicReference
 
 
@@ -38,6 +36,8 @@ public open class Domain : ConceptElement
 
     override val childNodes: Iterable<Node>
         get() = emptySet()
+
+
 
 
 
@@ -104,4 +104,6 @@ public class DomainFamily : Family<SubjectArea, Domain>
         return array.get().iterator();
     }
 }
+
+
 

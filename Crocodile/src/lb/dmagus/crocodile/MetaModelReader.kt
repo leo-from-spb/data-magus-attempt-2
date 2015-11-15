@@ -13,6 +13,7 @@ val mTemplatePattern = Regex("^\\w+\\.template$")
 
 val mFilePattern   = regex("^(\\w+) : (\\w+) @ (\\w+) ((\\+ (\\w+) )+)?$")
 val mFamilyPattern = regex("^  \\+ (\\w+) $")
+val mRefPattern    = regex("^  \\. (\\w+) -> (\\w+) $")
 val mPropPattern   = regex("^  \\. (\\w+) : (\\w+) = (\\w+) $")
 
 
@@ -75,6 +76,9 @@ fun readMetaFile(mm: MetaModel, file: Path)
             val fm = line match mFamilyPattern
             if (fm != null) handleFamily(f, fm)
 
+            val rm = line match mRefPattern
+            if (rm != null) handleRef(f, rm)
+
             val pm = line match mPropPattern
             if (pm != null) handleProperty(f, pm)
         }
@@ -98,6 +102,12 @@ fun handleFamily(f: MetaNode, pm: MatchResult)
 {
     val familyName = pm.groups[1]!!.value;
     f.families.add(MetaFamily(familyName))
+}
+
+fun handleRef(f: MetaNode, m: MatchResult)
+{
+    val r = MetaRef(m.groups[1]!!.value, m.groups[2]!!.value)
+    f.refs.add(r)
 }
 
 fun handleProperty(f: MetaNode, m: MatchResult)

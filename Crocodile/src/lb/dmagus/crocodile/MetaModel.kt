@@ -30,11 +30,13 @@ data class MetaNode
 
     val interfaces = ArrayList<String>()
     val families   = ArrayList<MetaFamily>()
+    val refs = ArrayList<MetaRef>()
     val properties = ArrayList<MetaProperty>()
 
     val top: Boolean get() = "TopSpace" in interfaces
     val leaf: Boolean get() = families.isEmpty()
     val hasFamilies: Boolean get() = families.isNotEmpty()
+    val hasRefs: Boolean get() = refs.isNotEmpty()
     val hasProperties: Boolean get() = properties.isNotEmpty()
 }
 
@@ -49,6 +51,15 @@ data class MetaFamily
     val klasses: String get() = klass.plural
 }
 
+
+data class MetaRef
+(
+    var refName:     String,
+    var targetClass: String
+)
+{
+    val refNameCap: String get() = refName.capitalize()
+}
 
 
 

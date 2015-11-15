@@ -1,5 +1,8 @@
 package lb.dmagus.model.core
 
+import java.util.concurrent.ConcurrentHashMap
+
+
 /**
  * @author Leonid Bushuev from JetBrains
  **/
@@ -59,6 +62,23 @@ public abstract class Element : Node
 
     public abstract val families: List<Family<Node,Element>>
 
+
+    //// ARCS \\\\
+
+    private val arcs = ConcurrentHashMap<Arc<*,*>, Boolean>()
+
+    internal fun registerArc(arc: Arc<*,*>)
+    {
+        assert(arc.source == this || arc.target == this) { "An alien arc!" }
+        modifying()
+        arcs.putIfAbsent(arc, java.lang.Boolean.TRUE)
+    }
+
+    internal fun deregisterArc(arc: Arc<*,*>)
+    {
+        modifying()
+        arcs.remove(arc)
+    }
 
 
     //// LEGACY FUNCTIONS \\\\
