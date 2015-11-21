@@ -172,6 +172,11 @@ public class ${n.klass}Family : Family<${n.parent.klass}, ${n.klass}>
     {
         return array.get().iterator();
     }
+
+    override fun excludeAll(): Array<out ${n.klass}>
+    {
+        return array.getAndSet(emptyArray())
+    }
 }
 
 

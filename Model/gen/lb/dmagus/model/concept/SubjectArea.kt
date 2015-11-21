@@ -97,6 +97,11 @@ public class SubjectAreaFamily : Family<Model, SubjectArea>
     {
         return array.get().iterator();
     }
+
+    override fun excludeAll(): Array<out SubjectArea>
+    {
+        return array.getAndSet(emptyArray())
+    }
 }
 
 

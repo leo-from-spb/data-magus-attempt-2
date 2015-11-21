@@ -103,6 +103,11 @@ public class DomainFamily : Family<SubjectArea, Domain>
     {
         return array.get().iterator();
     }
+
+    override fun excludeAll(): Array<out Domain>
+    {
+        return array.getAndSet(emptyArray())
+    }
 }
 
 

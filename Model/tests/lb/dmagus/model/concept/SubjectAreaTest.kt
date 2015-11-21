@@ -21,4 +21,18 @@ class SubjectAreaTest
         assertThat(list).contains(d1,d2,e1,e2)
     }
 
+
+    @Test
+    fun drop_nested_elements_recursively()
+    {
+        val area = SubjectArea(Model())
+        val entity = area.entities.newEntity()
+        val attr = entity.attributes.newAttribute()
+
+        area.drop()
+
+        assertThat(entity.dropped).isTrue()
+        assertThat(attr.dropped).isTrue()
+    }
+
 }

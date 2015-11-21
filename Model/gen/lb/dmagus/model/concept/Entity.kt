@@ -101,6 +101,11 @@ public class EntityFamily : Family<SubjectArea, Entity>
     {
         return array.get().iterator();
     }
+
+    override fun excludeAll(): Array<out Entity>
+    {
+        return array.getAndSet(emptyArray())
+    }
 }
 
 

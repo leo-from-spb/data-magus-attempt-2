@@ -130,6 +130,11 @@ public class AttributeFamily : Family<Entity, Attribute>
     {
         return array.get().iterator();
     }
+
+    override fun excludeAll(): Array<out Attribute>
+    {
+        return array.getAndSet(emptyArray())
+    }
 }
 
 

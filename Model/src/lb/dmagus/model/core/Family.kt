@@ -6,9 +6,16 @@ package lb.dmagus.model.core
  **/
 abstract class Family<out P: Node, out C: Element> : Iterable<C>
 {
-    public abstract val owner: P
+    abstract val owner: P
 
+    abstract fun excludeAll(): Array<out C>
 
+    fun clear()
+    {
+        val elementsToDrop = excludeAll()
+        for (i in elementsToDrop.size-1 downTo 0)
+            elementsToDrop[i].drop()
+    }
 
 }
 

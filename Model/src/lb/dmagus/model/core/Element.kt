@@ -46,7 +46,8 @@ public abstract class Element : Node
 
     open fun dropInnerContent()
     {
-        // here do nothing, inheritors have something
+        clearAllArcs()
+        clearAllFamilies()
     }
 
     val dropped: Boolean get() = id == Int.MIN_VALUE;
@@ -63,21 +64,49 @@ public abstract class Element : Node
     public abstract val families: List<Family<Node,Element>>
 
 
+    private fun clearAllFamilies()
+    {
+        for (f in families)
+        {
+            f.clear()
+        }
+    }
+
+
+
     //// ARCS \\\\
 
-    private val arcs = ConcurrentHashMap<Arc<*,*>, Boolean>()
+    private val arcs_ = ConcurrentHashMap<Arc<*,*>, Boolean>()
 
     internal fun registerArc(arc: Arc<*,*>)
     {
         assert(arc.source == this || arc.target == this) { "An alien arc!" }
         modifying()
-        arcs.putIfAbsent(arc, java.lang.Boolean.TRUE)
+        arcs_.putIfAbsent(arc, java.lang.Boolean.TRUE)
     }
 
     internal fun deregisterArc(arc: Arc<*,*>)
     {
+        if (arcs_.isEmpty()) return
+
         modifying()
-        arcs.remove(arc)
+        arcs_.remove(arc)
+    }
+
+    /**
+     * All arcs, both directions.
+     */
+    public val arcs: Collection<Arc<*,*>>
+        get() = arcs_.keys
+
+    private fun clearAllArcs()
+    {
+        if (arcs_.isEmpty()) return
+
+        modifying()
+        val arcsToDrop = arcs_.keys().toList()
+        arcs_.clear()
+        for (arc in arcsToDrop) arc.drop()
     }
 
 
