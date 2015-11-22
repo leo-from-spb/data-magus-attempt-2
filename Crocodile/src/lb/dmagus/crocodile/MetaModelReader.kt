@@ -13,7 +13,7 @@ val mTemplatePattern = Regex("^\\w+\\.template$")
 
 val mFilePattern   = regex("^(\\w+) : (\\w+) @ (\\w+) ((\\+ (\\w+) )+)?$")
 val mFamilyPattern = regex("^  \\+ (\\w+) $")
-val mRefPattern    = regex("^  \\. (\\w+) -> (\\w+) $")
+val mRefPattern    = regex("^  \\. (\\w+) (--?>>?) (\\w+) $")
 val mPropPattern   = regex("^  \\. (\\w+) : (\\w+) = (\\w+) $")
 
 
@@ -106,7 +106,14 @@ fun handleFamily(f: MetaNode, pm: MatchResult)
 
 fun handleRef(f: MetaNode, m: MatchResult)
 {
-    val r = MetaRef(m.groups[1]!!.value, m.groups[2]!!.value)
+    val refName = m.groups[1]!!.value
+    val targetClass = m.groups[3]!!.value
+    val refType = m.groups[2]!!.value
+    val r = MetaRef(refName,
+                    targetClass,
+                    "--" in refType,
+                    ">>" in refType,
+                    true)
     f.refs.add(r)
 }
 

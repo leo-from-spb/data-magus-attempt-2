@@ -67,6 +67,7 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
 [#else]
 
     //// NO FAMILIES \\\\
+
     override val families = emptyList<Family<Node,Element>>()
 
     override val childNodes: Iterable<Node>
@@ -80,7 +81,14 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
     //// REFERENCES \\\\
     
     [#list n.refs as r]
-    
+    [#if r.multi]
+    final inner class ${r.refNamesCap}: References<${n.klass}, ${r.targetClass}>
+    {
+        constructor() : super()
+        override fun newArc(target: ${r.targetClass}): Arc<${n.klass}, ${r.targetClass}> = ${n.klass}${r.refNameCap}Arc(this@${n.klass}, target)
+    }
+    val ${r.refNames} = ${r.refNamesCap}()
+    [#else]
     private var ${r.refName}Arc: ${n.klass}${r.targetClass}Arc? = null
     var ${r.refName}: ${r.targetClass}?
         get() {
@@ -96,6 +104,7 @@ public ${n.open} class ${n.klass} : ${n.base} [#list n.interfaces as i], ${i} [/
             }
             if (value != null) ${r.refName}Arc = ${n.klass}${r.targetClass}Arc(this,value)
         }
+    [/#if]
     [/#list]
     
 [/#if]
@@ -189,8 +198,12 @@ class ${n.klass}${r.refNameCap}Arc (${n.name}: ${n.klass}, ${r.refName}: ${r.tar
 
     override fun drop()
     {
+        [#if r.multi]
+        source.${r.refNames}.unregister(this)
+        [#else]
         source.${r.refName} = null
         super.drop()
+        [/#if]
     }
 }
 

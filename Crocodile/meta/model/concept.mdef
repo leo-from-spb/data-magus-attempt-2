@@ -8,8 +8,15 @@ Domain: ConceptElement @ SubjectArea
 
 Entity: ConceptElement @ SubjectArea
     +Attribute
+    +InvEntry
 
 Attribute: ConceptElement @ Entity
-    .domain -> Domain
+    .domain --> Domain
     .abstract: Boolean = false
     .autoincrement: Boolean = false
+
+InvEntry: ConceptElement @ Entity
+    .attribute ->> Attribute
+    .unique: Boolean = false
+    .primary: Boolean = false
+

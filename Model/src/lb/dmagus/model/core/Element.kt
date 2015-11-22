@@ -1,5 +1,6 @@
 package lb.dmagus.model.core
 
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -71,6 +72,50 @@ public abstract class Element : Node
             f.clear()
         }
     }
+
+
+    //// REFERENCES \\\\
+
+    inner abstract class References<S: Element, T: Element>: Sequence<T>
+    {
+        val arcs: ArrayList<Arc<S,T>> = ArrayList()
+
+        override fun iterator(): Iterator<T>
+        {
+            return arcs.map { it.target }.iterator()
+        }
+
+        fun assign(elements: Collection<T>)
+        {
+            if (arcs.isEmpty() && elements.isEmpty()) return;
+            this@Element.modifying()
+
+            clear();
+
+            if (elements.isNotEmpty()) {
+                arcs.ensureCapacity(elements.size);
+                for (element in elements)
+                {
+                   val arc = newArc(element)
+                    arcs.add(arc)
+                }
+            }
+
+        }
+
+        protected abstract fun newArc(target: T): Arc<S,T>;
+
+        internal fun unregister(arc: Arc<*,*>)
+        {
+            for (i in arcs.size-1 downTo 0) if (arcs[i] === arc) arcs.removeAt(i)
+        }
+
+        fun clear()
+        {
+            for (i in arcs.size-1 downTo 0) arcs[i].drop()
+        }
+    }
+
 
 
 

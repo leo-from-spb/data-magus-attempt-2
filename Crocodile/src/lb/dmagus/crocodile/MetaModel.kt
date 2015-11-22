@@ -55,10 +55,15 @@ data class MetaFamily
 data class MetaRef
 (
     var refName:     String,
-    var targetClass: String
+    var targetClass: String,
+    var far:         Boolean,
+    var multi:       Boolean,
+    var ordered:     Boolean
 )
 {
-    val refNameCap: String get() = refName.capitalize()
+    val refNames:    String get() = refName.plural
+    val refNameCap:  String get() = refName.capitalize()
+    val refNamesCap: String get() = refName.plural.capitalize()
 }
 
 

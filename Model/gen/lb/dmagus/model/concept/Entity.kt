@@ -34,12 +34,13 @@ public open class Entity : ConceptElement
     //// FAMILIES \\\\
 
     public val attributes: AttributeFamily = AttributeFamily(this)
+    public val invEntries: InvEntryFamily = InvEntryFamily(this)
 
     override val families =
-        listOf(attributes)
+        listOf(attributes, invEntries)
 
     override val childNodes: Iterable<Node>
-        get() = attributes
+        get() = families.flatten()
 
 
 
