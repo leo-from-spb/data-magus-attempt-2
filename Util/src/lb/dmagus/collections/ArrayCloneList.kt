@@ -31,7 +31,7 @@ class ArrayCloneList<E: Any>: List<E>
             {
                 Byte::class    -> java.lang.Byte::class.java as Class<E>
                 Short::class   -> java.lang.Short::class.java as Class<E>
-                Integer::class -> Integer::class.java as Class<E>
+                Int::class     -> java.lang.Integer::class.java as Class<E>
                 Long::class    -> java.lang.Long::class.java as Class<E>
                 else           -> throw IllegalArgumentException("Unknown how to handle class $elementClass")
             }

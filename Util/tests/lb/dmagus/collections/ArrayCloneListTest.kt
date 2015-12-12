@@ -35,6 +35,31 @@ class ArrayCloneListTest
     }
 
     @Test
+    fun add_Int()
+    {
+        val a = ArrayCloneList(Int::class)
+
+        assertThat(a.size).isEqualTo(0)
+
+        a.add(111)
+
+        assertThat(a.size).isEqualTo(1)
+        assertThat(a[0]).isEqualTo(111)
+
+        a.add(222)
+
+        assertThat(a.size).isEqualTo(2)
+        assertThat(a[0]).isEqualTo(111)
+        assertThat(a[1]).isEqualTo(222)
+
+        a.add(333)
+
+        assertThat(a.size).isEqualTo(3)
+        assertThat(a[0]).isEqualTo(111)
+        assertThat(a[1]).isEqualTo(222)
+        assertThat(a[2]).isEqualTo(333)
+    }
+    @Test
     fun add_Long()
     {
         val a = ArrayCloneList(Long::class)
