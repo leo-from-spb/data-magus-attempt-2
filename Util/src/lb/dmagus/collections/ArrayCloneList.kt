@@ -1,7 +1,6 @@
 package lb.dmagus.collections
 
 import java.util.concurrent.atomic.AtomicReference
-import kotlin.jvm.internal.Intrinsic
 import kotlin.reflect.KClass
 
 /**
@@ -9,15 +8,33 @@ import kotlin.reflect.KClass
  *
  * @author Leonid Bushuev from JetBrains
  **/
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 class ArrayCloneList<E: Any>: List<E>
 {
     private val array: AtomicReference<Array<E>?> = AtomicReference(null)
-    val elementClass: Class<E>
+    val elementClass: java.lang.Class<E>
 
 
     constructor(elementClass: KClass<E>)
     {
-        this.elementClass = elementClass.java
+        this.elementClass = obtainRealClass(elementClass)
+    }
+
+
+    @Suppress("CAST_NEVER_SUCCEEDS", "NOTHING_TO_INLINE")
+    private inline fun obtainRealClass(elementClass: KClass<E>): java.lang.Class<E>
+    {
+        return if (elementClass.java.`package` != null)
+            elementClass.java
+        else
+            when (elementClass)
+            {
+                Byte::class    -> java.lang.Byte::class.java as Class<E>
+                Short::class   -> java.lang.Short::class.java as Class<E>
+                Integer::class -> Integer::class.java as Class<E>
+                Long::class    -> java.lang.Long::class.java as Class<E>
+                else           -> throw IllegalArgumentException("Unknown how to handle class $elementClass")
+            }
     }
 
 
@@ -39,19 +56,11 @@ class ArrayCloneList<E: Any>: List<E>
         change { old ->
             if (old == null) {
                 result = 0
-                @Suppress("UNCHECKED_CAST")
-                val neo = java.lang.reflect.Array.newInstance(elementClass, 1) as Array<E>
-                neo[0] = element
-                neo
+                FrozenArrays.newWithOne(elementClass, element)
             }
             else {
-                val n = old.size
-                result = n
-                @Suppress("UNCHECKED_CAST")
-                val neo = java.lang.reflect.Array.newInstance(elementClass, n + 1) as Array<E>
-                System.arraycopy(old, 0, neo, 0, n)
-                neo[n] = element
-                neo
+                result = old.size
+                FrozenArrays.addOne(old, element)
             }
         }
 
@@ -65,23 +74,8 @@ class ArrayCloneList<E: Any>: List<E>
               null
           }
           else {
-              val index = old.indexOf(element)
-              if (index < 0) {
-                  old
-              }
-              else {
-                  val n = old.size
-                  if (n == 1) {
-                      null
-                  }
-                  else {
-                      @Suppress("UNCHECKED_CAST")
-                      val neo = java.lang.reflect.Array.newInstance(elementClass, n - 1) as Array<E>
-                      if (index > 0) System.arraycopy(old, 0, neo, 0, index)
-                      if (index < n) System.arraycopy(old, index+1, neo, index, n-index-1)
-                      neo
-                  }
-              }
+              val neo = FrozenArrays.removeElement(old, element)
+              if (neo.isNotEmpty()) neo else null
           }
         }
     }
@@ -99,11 +93,7 @@ class ArrayCloneList<E: Any>: List<E>
                 null
             }
             else {
-                @Suppress("UNCHECKED_CAST")
-                val neo = java.lang.reflect.Array.newInstance(elementClass, n - 1) as Array<E>
-                if (index > 0) System.arraycopy(old, 0, neo, 0, index)
-                if (index < n) System.arraycopy(old, index+1, neo, index, n-index-1)
-                neo
+                FrozenArrays.removeAt(old, index)
             }
         }
 
@@ -116,7 +106,7 @@ class ArrayCloneList<E: Any>: List<E>
         var result: Array<E>? = null
 
         change { old ->
-            result = old ?: (emptyArray<Any>() as Array<E>)
+            result = old ?: FrozenArrays.newEmptyArray(elementClass)
             null
         }
 
