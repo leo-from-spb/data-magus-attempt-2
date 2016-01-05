@@ -5,7 +5,7 @@ package lb.dmagus.util
 
 @Suppress("NOTHING_TO_INLINE")
 public inline operator fun String.get(range: IntRange): String {
-    return this.substring(range.start, range.end)
+    return this.substring(range.start, range.endInclusive)
 }
 
 

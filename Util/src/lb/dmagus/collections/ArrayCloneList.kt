@@ -137,7 +137,19 @@ class ArrayCloneList<E: Any>: List<E>
     override fun containsAll(elements: Collection<E>): Boolean
     {
         val a = array.get()
-        return if (a != null) a.asList().containsAllRaw(elements) else false
+        if (a != null)
+        {
+            // TODO optimize when a lot of items in both collections
+            for (element in elements)
+            {
+                if (!a.contains(element)) return false;
+            }
+            return true;
+        }
+        else
+        {
+            return elements.isEmpty();
+        }
     }
 
     override fun get(index: Int): E

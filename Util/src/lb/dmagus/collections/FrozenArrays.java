@@ -50,7 +50,7 @@ public abstract class FrozenArrays {
     }
   }
 
-
+  @NotNull
   static <T> T[] removeAt(@NotNull final T[] origArray, final int index) {
     int n = origArray.length;
     T[] newArray = (T[]) Array.newInstance(origArray.getClass().getComponentType(), n - 1);
@@ -60,7 +60,6 @@ public abstract class FrozenArrays {
   }
 
 
-  @NotNull
   static <T, E extends T> int lastIndexOf(@NotNull final T[] array, @NotNull final E element) {
     for (int i = array.length-1; i >= 0; i--)
       if (element.equals(array[i]))
