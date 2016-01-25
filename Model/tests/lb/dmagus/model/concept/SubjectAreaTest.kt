@@ -17,7 +17,7 @@ class SubjectAreaTest
         val e1 = a.entities.newEntity()
         val e2 = a.entities.newEntity()
 
-        val list = a.childNodes.toArrayList()
+        val list = a.childNodes.toList();
         assertThat(list).contains(d1,d2,e1,e2)
     }
 

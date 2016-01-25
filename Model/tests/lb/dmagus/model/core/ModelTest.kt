@@ -22,6 +22,7 @@ class ModelTest
     {
         val model = Model()
         val subjectArea = SubjectArea(model)
+        assertThat(subjectArea.parentNode).isSameAs(model)
         assertThat(model.elementCount).isEqualTo(1)
     }
 

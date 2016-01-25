@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger
  *
  * @author Leonid Bushuev from JetBrains
  **/
-public class Model : Node
+class Model : Node
 {
 
     //// INTERNAL STATE \\\\
@@ -67,6 +67,7 @@ public class Model : Node
 
     //// TRANSACTIONS \\\\
 
+    @Suppress("UNUSED_PARAMETER")
     fun modifying(elem: Element)
     {
 

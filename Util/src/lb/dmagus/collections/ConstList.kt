@@ -78,7 +78,7 @@ class ConstList<out T> : List<T>
         return Iterator(index)
     }
 
-    public inner class Iterator (var index: Int = 0) : kotlin.ListIterator<T>
+    inner class Iterator (var index: Int = 0) : kotlin.collections.ListIterator<T>
     {
 
         override fun next(): T
