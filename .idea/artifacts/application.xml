@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="application">
+    <output-path>$PROJECT_DIR$/out/artifacts/application</output-path>
+    <root id="root">
+      <element id="library" level="project" name="KotlinJavaRuntime" />
+      <element id="archive" name="model.jar">
+        <element id="module-output" name="Model" />
+      </element>
+      <element id="archive" name="util.jar">
+        <element id="module-output" name="Util" />
+      </element>
+    </root>
+  </artifact>
+</component>
