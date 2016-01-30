@@ -29,7 +29,7 @@ class AttributeTest
         attribute.domain = null
 
         // verify detach
-        assertThat(attribute.domain).isNull()
+        assertThat(attribute.domain as Any?).isNull()
     }
 
 
