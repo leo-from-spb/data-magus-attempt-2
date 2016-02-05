@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,8 +52,8 @@ public final class Couple<E> {
 
 
   @NotNull
-  public ConstList<E> toList() {
-    return Const.listOf(a, b);
+  public MiniList<E> toList() {
+    return Mini.listOf(a, b);
   }
 
 }

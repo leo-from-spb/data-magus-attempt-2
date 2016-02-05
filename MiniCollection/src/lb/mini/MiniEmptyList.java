@@ -1,5 +1,6 @@
-package lb.collection;
+package lb.mini;
 
+import lb.mini.exception.CollectionIsEmptyException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,17 +14,17 @@ import java.util.function.Predicate;
 /**
  * @author Leonid Bushuev
  **/
-final class ConstEmptyList<E> extends ConstList<E> {
+final class MiniEmptyList<E> extends MiniList<E> {
 
 
   //// THE INSTANCE \\\\
 
-  private static final ConstEmptyList<?> INSTANCE = new ConstEmptyList();
+  private static final MiniEmptyList<?> INSTANCE = new MiniEmptyList();
 
 
-  static <T> ConstList<T> one() {
+  static <T> MiniList<T> one() {
     //noinspection unchecked
-    return (ConstList<T>) INSTANCE;
+    return (MiniList<T>) INSTANCE;
   }
 
 
@@ -32,28 +33,28 @@ final class ConstEmptyList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstList<E> grow(@NotNull E element) {
-    return new ConstSingletonList<>(element);
+  public MiniList<E> grow(@NotNull E element) {
+    return new MiniSingletonList<>(element);
   }
 
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitAt(int position) {
+  public Couple<MiniList<E>> splitAt(int position) {
     if (position != 0) throw new IndexOutOfBoundsException("Attempted to split an empty list on position " + position);
     return Couple.of(this,this);
   }
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitWhen(@NotNull Predicate<E> predicate) {
+  public Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate) {
     return Couple.of(this,this);
   }
 
 
   @NotNull @Contract(pure = true)
   @Override
-  public ConstList<E> except(@Nullable Object element) {
+  public MiniList<E> except(@Nullable Object element) {
     return this;
   }
 
@@ -112,7 +113,7 @@ final class ConstEmptyList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstList<E> subList(int fromIndex, int toIndex) {
+  public MiniList<E> subList(int fromIndex, int toIndex) {
     if (fromIndex == toIndex) return this;
     else throw new IndexOutOfBoundsException("Attempted to get a non-empty subList from the empty list");
   }
@@ -133,7 +134,7 @@ final class ConstEmptyList<E> extends ConstList<E> {
   @NotNull
   @Override
   public Object[] toArray() {
-    return ConstInternals.EMPTY_ARRAY;
+    return MiniInternals.EMPTY_ARRAY;
   }
 
 

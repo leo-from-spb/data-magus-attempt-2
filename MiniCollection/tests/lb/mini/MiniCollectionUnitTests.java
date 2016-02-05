@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -11,8 +11,8 @@ import org.junit.runners.Suite;
  **/
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  ConstEmptyListTest.class,
-  ConstRegularListTest.class,
-  ConstTest.class
+  MiniEmptyListTest.class,
+  MiniRegularListTest.class,
+  MiniTest.class
 })
-public class FineCollectionUnitTests {}
+public class MiniCollectionUnitTests {}

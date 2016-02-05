@@ -1,5 +1,6 @@
-package lb.collection;
+package lb.mini;
 
+import lb.mini.exception.IllegalModificationException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +16,7 @@ import java.util.function.Consumer;
  *
  * @author Leonid Bushuev
  **/
-interface ConstInternals {
+interface MiniInternals {
 
   static final Object[] EMPTY_ARRAY = new Object[0];
 

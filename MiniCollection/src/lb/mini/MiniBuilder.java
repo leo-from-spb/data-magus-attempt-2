@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,19 +15,19 @@ import java.util.Arrays;
  * // TODO optimize
  **/
 @SuppressWarnings("unchecked")
-public class ConstBuilder<E> {
+public class MiniBuilder<E> {
 
   @NotNull
   private final ArrayList container;
 
 
 
-  public ConstBuilder() {
+  public MiniBuilder() {
     container = new ArrayList<>();
   }
 
 
-  public ConstBuilder(int initialCapacity) {
+  public MiniBuilder(int initialCapacity) {
     container = new ArrayList<>(initialCapacity);
   }
 
@@ -48,13 +48,13 @@ public class ConstBuilder<E> {
 
 
   @NotNull
-  public ConstList<E> buildList() {
+  public MiniList<E> buildList() {
     int size = container.size();
-    if (size == 0) return ConstEmptyList.one();
-    if (size == 1) return new ConstSingletonList<>((E)container.get(0));
+    if (size == 0) return MiniEmptyList.one();
+    if (size == 1) return new MiniSingletonList<>((E)container.get(0));
 
     Object[] array = container.toArray();
-    ConstRegularList<E> list = new ConstRegularList<>(array, 0, size, false);
+    MiniRegularList<E> list = new MiniRegularList<>(array, 0, size, false);
     container.clear();
 
     return list;

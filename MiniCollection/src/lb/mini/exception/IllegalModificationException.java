@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini.exception;
 
 /**
  * Thrown when attempted to modify a constant collection.

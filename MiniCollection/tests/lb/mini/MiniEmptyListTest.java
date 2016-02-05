@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.junit.Test;
 
@@ -6,9 +6,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 
-public class ConstEmptyListTest {
+public class MiniEmptyListTest {
 
-  private final ConstList<Object> empty = ConstEmptyList.one();
+  private final MiniList<Object> empty = MiniEmptyList.one();
 
 
   @Test

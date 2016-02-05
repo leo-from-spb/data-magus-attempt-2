@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 /**
  * @author Leonid Bushuev
  **/
-final class ConstSingletonList<E> extends ConstList<E> {
+final class MiniSingletonList<E> extends MiniList<E> {
 
   //// THE STATE \\\\
 
@@ -23,7 +23,7 @@ final class ConstSingletonList<E> extends ConstList<E> {
 
   //// CONSTRUCTOR \\\\
 
-  ConstSingletonList(@NotNull final E element) {
+  MiniSingletonList(@NotNull final E element) {
     this.element = element;
   }
 
@@ -33,18 +33,18 @@ final class ConstSingletonList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstList<E> grow(@NotNull E element) {
+  public MiniList<E> grow(@NotNull E element) {
     Object[] array = new Object[] {this.element, element, null, null};
-    return new ConstRegularList<>(array, 0, 2, false);
+    return new MiniRegularList<>(array, 0, 2, false);
   }
 
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitAt(int position) {
+  public Couple<MiniList<E>> splitAt(int position) {
     switch (position) {
-      case 0: return Couple.of(ConstEmptyList.one(), this);
-      case 1: return Couple.of(this, ConstEmptyList.one());
+      case 0: return Couple.of(MiniEmptyList.one(), this);
+      case 1: return Couple.of(this, MiniEmptyList.one());
       default: throw new IndexOutOfBoundsException("Attempted to split a list of one element at position " + position);
     }
   }
@@ -52,16 +52,16 @@ final class ConstSingletonList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitWhen(@NotNull Predicate<E> predicate) {
-    if (predicate.test(element))  return Couple.of(this, ConstEmptyList.one());
-    else                          return Couple.of(ConstEmptyList.one(), this);
+  public Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate) {
+    if (predicate.test(element))  return Couple.of(this, MiniEmptyList.one());
+    else                          return Couple.of(MiniEmptyList.one(), this);
   }
 
 
   @NotNull
   @Override
-  public ConstList<E> except(@Nullable Object element) {
-    if (this.element.equals(element))  return ConstEmptyList.one();
+  public MiniList<E> except(@Nullable Object element) {
+    if (this.element.equals(element))  return MiniEmptyList.one();
     else                               return this;
   }
 
@@ -132,14 +132,14 @@ final class ConstSingletonList<E> extends ConstList<E> {
   @NotNull
   @Override
   public Iterator<E> iterator() {
-    return new ConstInternals.SingletonIterator<E>(element);
+    return new MiniInternals.SingletonIterator<E>(element);
   }
 
 
   @NotNull
   @Override
   public ListIterator<E> listIterator() {
-    return new ConstInternals.SingletonIterator<E>(element);
+    return new MiniInternals.SingletonIterator<E>(element);
   }
 
 
@@ -147,8 +147,8 @@ final class ConstSingletonList<E> extends ConstList<E> {
   @Override
   public ListIterator<E> listIterator(int index) {
     switch (index) {
-      case 0: return new ConstInternals.SingletonIterator<E>(element);
-      case 1: return new ConstInternals.SingletonIterator<E>(element, false);
+      case 0: return new MiniInternals.SingletonIterator<E>(element);
+      case 1: return new MiniInternals.SingletonIterator<E>(element, false);
       default: throw new IndexOutOfBoundsException("The constant list contains only one element.");
     }
   }
@@ -156,9 +156,9 @@ final class ConstSingletonList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstList<E> subList(int fromIndex, int toIndex) {
+  public MiniList<E> subList(int fromIndex, int toIndex) {
     if (fromIndex == 0 && toIndex == 1) return this;
-    if (fromIndex == toIndex) return ConstEmptyList.one();
+    if (fromIndex == toIndex) return MiniEmptyList.one();
     throw new IndexOutOfBoundsException("The constant list contains only one element.");
   }
 }

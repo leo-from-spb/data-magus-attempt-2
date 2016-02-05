@@ -1,5 +1,6 @@
-package lb.collection;
+package lb.mini;
 
+import lb.mini.exception.IllegalModificationException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +15,7 @@ import java.util.function.Predicate;
  *
  * @author Leonid Bushuev
  **/
-public abstract class ConstCollection<E> implements Collection<E>
+public abstract class MiniCollection<E> implements Collection<E>
 {
 
   @Override

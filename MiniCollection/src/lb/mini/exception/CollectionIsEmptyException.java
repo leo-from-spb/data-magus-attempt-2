@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini.exception;
 
 /**
  * @author Leonid Bushuev

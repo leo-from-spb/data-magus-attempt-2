@@ -1,14 +1,14 @@
-package lb.collection;
+package lb.mini;
 
 import org.junit.Test;
 
-import static lb.collection.Const.emptyList;
-import static lb.collection.Const.listOf;
+import static lb.mini.Mini.emptyList;
+import static lb.mini.Mini.listOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 
-public class ConstTest {
+public class MiniTest {
 
   @Test
   public void listOf_size() {
@@ -90,7 +90,7 @@ public class ConstTest {
 
   @Test
   public void grow_sequentially() {
-    ConstList<String> x = emptyList();
+    MiniList<String> x = emptyList();
 
     x = x.grow("A"); assertThat(x).containsExactly("A");
     x = x.grow("B"); assertThat(x).containsExactly("A","B");
@@ -107,25 +107,25 @@ public class ConstTest {
 
   @Test
   public void except_null() {
-    ConstList<Object> list0 = emptyList();
+    MiniList<Object> list0 = emptyList();
     assertThat(list0.except(null)).isSameAs(list0);
 
-    ConstList<Object> list1 = listOf(1111L);
+    MiniList<Object> list1 = listOf(1111L);
     assertThat(list1.except(null)).isSameAs(list1);
 
-    ConstList<Object> list2 = listOf(1111L,2222L);
+    MiniList<Object> list2 = listOf(1111L, 2222L);
     assertThat(list2.except(null)).isSameAs(list2);
   }
 
   @Test
   public void except_unexistent() {
-    ConstList<Object> list0 = emptyList();
+    MiniList<Object> list0 = emptyList();
     assertThat(list0.except(-1234L)).isSameAs(list0);
 
-    ConstList<Object> list1 = listOf(1111L);
+    MiniList<Object> list1 = listOf(1111L);
     assertThat(list1.except(1234L)).isSameAs(list1);
 
-    ConstList<Object> list2 = listOf(1111L,2222L);
+    MiniList<Object> list2 = listOf(1111L, 2222L);
     assertThat(list2.except(1234L)).isSameAs(list2);
   }
 

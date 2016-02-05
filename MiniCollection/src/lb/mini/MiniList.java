@@ -1,5 +1,7 @@
-package lb.collection;
+package lb.mini;
 
+import lb.mini.exception.CollectionIsEmptyException;
+import lb.mini.exception.IllegalModificationException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +18,7 @@ import java.util.function.UnaryOperator;
 /**
  * @author Leonid Bushuev
  **/
-public abstract class ConstList<E> extends ConstCollection<E> implements List<E>, RandomAccess {
+public abstract class MiniList<E> extends MiniCollection<E> implements List<E>, RandomAccess {
 
   //// ACCESSORS \\\\
 
@@ -59,7 +61,7 @@ public abstract class ConstList<E> extends ConstCollection<E> implements List<E>
    * @param element the element to add to the list.
    * @return        the result list.
    */
-  public abstract ConstList<E> grow(@NotNull final E element);
+  public abstract MiniList<E> grow(@NotNull final E element);
 
   /**
    * Splits the list at the specified position.
@@ -67,7 +69,7 @@ public abstract class ConstList<E> extends ConstCollection<E> implements List<E>
    * @return          a couple of lists.
    */
   @NotNull
-  public abstract Couple<ConstList<E>> splitAt(int position);
+  public abstract Couple<MiniList<E>> splitAt(int position);
 
   /**
    * Splits a list into two lists,
@@ -80,7 +82,7 @@ public abstract class ConstList<E> extends ConstCollection<E> implements List<E>
    *                   Both list are not null, but they can be empty.
    */
   @NotNull
-  public abstract Couple<ConstList<E>> splitWhen(@NotNull Predicate<E> predicate);
+  public abstract Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate);
 
   /**
    * Returns the list without the given element.
@@ -88,7 +90,7 @@ public abstract class ConstList<E> extends ConstCollection<E> implements List<E>
    * @return         the list that doesn't contain the given <tt>element</tt>.
    */
   @NotNull
-  public abstract ConstList<E> except(@Nullable final Object element);
+  public abstract MiniList<E> except(@Nullable final Object element);
 
 
   //// FORBIDDEN MUTABILITY \\\\

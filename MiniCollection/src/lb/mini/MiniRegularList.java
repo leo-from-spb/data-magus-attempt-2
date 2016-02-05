@@ -1,4 +1,4 @@
-package lb.collection;
+package lb.mini;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Predicate;
 
-import static lb.collection.Const.emptyList;
-import static lb.collection.Const.listOf;
-import static lb.collection.ConstInternals.ArrayIterator;
-import static lb.collection.ConstInternals.suggestNewCapacity;
+import static lb.mini.Mini.emptyList;
+import static lb.mini.Mini.listOf;
+import static lb.mini.MiniInternals.ArrayIterator;
+import static lb.mini.MiniInternals.suggestNewCapacity;
 
 
 
@@ -20,7 +20,7 @@ import static lb.collection.ConstInternals.suggestNewCapacity;
  * @author Leonid Bushuev
  **/
 @SuppressWarnings("unchecked")
-final class ConstRegularList<E> extends ConstList<E> {
+final class MiniRegularList<E> extends MiniList<E> {
 
   //// STATE \\\\
 
@@ -40,7 +40,7 @@ final class ConstRegularList<E> extends ConstList<E> {
   //// CONSTRUCTOR \\\\
 
 
-  ConstRegularList(@NotNull final Object[] array, int offset, int size, boolean copy) {
+  MiniRegularList(@NotNull final Object[] array, int offset, int size, boolean copy) {
     copy = copy || offset != 0;
     this.array = copy ? copyArray(array, offset, size) : array;
     this.size = size;
@@ -59,13 +59,13 @@ final class ConstRegularList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstRegularList<E> grow(@NotNull final E element) {
+  public MiniRegularList<E> grow(@NotNull final E element) {
     // first, try the optimized way
     if (size < array.length) {
       synchronized (array) {
         if (array[size] == null) {
           array[size] = element; // captured
-          return new ConstRegularList<>(array, 0, size+1, false);
+          return new MiniRegularList<>(array, 0, size + 1, false);
         }
       }
     }
@@ -75,28 +75,28 @@ final class ConstRegularList<E> extends ConstList<E> {
     Object[] a = new Object[newCapacity];
     System.arraycopy(array, 0, a, 0, size);
     a[size] = element;
-    return new ConstRegularList<>(a, 0, size+1, false);
+    return new MiniRegularList<>(a, 0, size + 1, false);
   }
 
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitAt(int position) {
+  public Couple<MiniList<E>> splitAt(int position) {
     if (position == 0) return Couple.of(emptyList(), this);
     if (position == size) return Couple.of(this, emptyList());
     if (position < 0 || position > size) throw new IndexOutOfBoundsException("Attempted to split a list of "+size+" elements at position " + position);
 
-    ConstList<E> a = listOf(array, 0, position, false);
-    ConstList<E> b = listOf(array, position, size, false);
+    MiniList<E> a = listOf(array, 0, position, false);
+    MiniList<E> b = listOf(array, position, size, false);
     return Couple.of(a, b);
   }
 
 
   @NotNull
   @Override
-  public Couple<ConstList<E>> splitWhen(@NotNull Predicate<E> predicate) {
-    ConstBuilder<E> builderA = new ConstBuilder<>(size);
-    ConstBuilder<E> builderB = new ConstBuilder<>(size);
+  public Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate) {
+    MiniBuilder<E> builderA = new MiniBuilder<>(size);
+    MiniBuilder<E> builderB = new MiniBuilder<>(size);
     for (int i = 0; i < size; i++) {
       E element = (E)array[i];
       if (predicate.test(element)) builderA.add(element);
@@ -112,13 +112,13 @@ final class ConstRegularList<E> extends ConstList<E> {
 
   @NotNull
   @Override
-  public ConstList<E> except(@Nullable Object element) {
+  public MiniList<E> except(@Nullable Object element) {
     if (element == null) return this;
 
     int firstIndex = indexOf(element);
     if (firstIndex < 0) return this;
 
-    ConstBuilder b = new ConstBuilder(size-1);
+    MiniBuilder b = new MiniBuilder(size - 1);
     b.addAll(array, 0, firstIndex, false);
     for (int i = firstIndex+1; i < size; i++) {
       Object ei = array[i];
@@ -175,13 +175,13 @@ final class ConstRegularList<E> extends ConstList<E> {
 
   @Override
   public int indexOf(final Object o) {
-    return ConstInternals.indexOf(o, array, size);
+    return MiniInternals.indexOf(o, array, size);
   }
 
 
   @Override
   public int lastIndexOf(final Object o) {
-    return ConstInternals.lastIndexOf(o, array, size);
+    return MiniInternals.lastIndexOf(o, array, size);
   }
 
 
@@ -199,11 +199,11 @@ final class ConstRegularList<E> extends ConstList<E> {
                                                         fromIndex,toIndex,size));
 
     int n = toIndex - fromIndex;
-    if (n <= 0) return ConstEmptyList.one();
-    if (n == 1) return new ConstSingletonList((E)array[fromIndex]);
+    if (n <= 0) return MiniEmptyList.one();
+    if (n == 1) return new MiniSingletonList((E)array[fromIndex]);
     if (n == size) return this;
 
-    return new ConstRegularList<>(array, fromIndex, n, true);
+    return new MiniRegularList<>(array, fromIndex, n, true);
   }
 
 
