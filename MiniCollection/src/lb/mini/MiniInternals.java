@@ -4,10 +4,10 @@ import lb.mini.exception.IllegalModificationException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
+
+import static javafx.scene.input.KeyCode.T;
 
 
 
@@ -20,6 +20,10 @@ interface MiniInternals {
 
   static final Object[] EMPTY_ARRAY = new Object[0];
 
+  static final int LIST_SPLITERATORS_CHARACTERISTICS = Spliterator.SIZED | Spliterator.NONNULL | Spliterator.ORDERED | Spliterator.IMMUTABLE;
+  static final int SET_SPLITERATORS_CHARACTERISTICS = LIST_SPLITERATORS_CHARACTERISTICS | Spliterator.DISTINCT;
+
+
 
   //// ARRAYS AND SIZES \\\\
 
@@ -31,6 +35,19 @@ interface MiniInternals {
     while (v <= min) v = v << 1;
 
     return v;
+  }
+
+  @NotNull
+  static Object[] copyArraySuggestingCapacity(@NotNull final Object[] array, int offset, int size) {
+    int capacity = suggestNewCapacity(size);
+    return copyArray(array, offset, size, capacity);
+  }
+
+  @NotNull
+  static Object[] copyArray(@NotNull Object[] array, int offset, int size, int capacity) {
+    Object[] newArray = new Object[capacity];
+    System.arraycopy(array, offset, newArray, 0, size);
+    return newArray;
   }
 
   static int indexOf(final Object element, @NotNull final Object[] array, final int size) {
@@ -47,6 +64,15 @@ interface MiniInternals {
     return -1;
   }
 
+
+  //// ELEMENTS \\\\
+
+
+  @NotNull @Contract(value = "!null->!null; null->fail", pure = true)
+  static <T> T checkNotNull(final T element) {
+    assert element != null : "An element of MiniCollection must not be null";
+    return element;
+  }
 
 
   //// ITERATORS \\\\

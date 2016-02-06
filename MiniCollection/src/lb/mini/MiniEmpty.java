@@ -14,17 +14,24 @@ import java.util.function.Predicate;
 /**
  * @author Leonid Bushuev
  **/
-final class MiniEmptyList<E> extends MiniList<E> {
+final class MiniEmpty<E> extends MiniSet<E> {
 
 
   //// THE INSTANCE \\\\
 
-  private static final MiniEmptyList<?> INSTANCE = new MiniEmptyList();
+  private static final MiniEmpty<?> INSTANCE = new MiniEmpty();
 
 
-  static <T> MiniList<T> one() {
+  static <T> MiniSet<T> one() {
     //noinspection unchecked
-    return (MiniList<T>) INSTANCE;
+    return (MiniSet<T>) INSTANCE;
+  }
+
+
+  @NotNull
+  @Override
+  Object[] array() {
+    return MiniInternals.EMPTY_ARRAY;
   }
 
 
@@ -33,28 +40,28 @@ final class MiniEmptyList<E> extends MiniList<E> {
 
   @NotNull
   @Override
-  public MiniList<E> grow(@NotNull E element) {
-    return new MiniSingletonList<>(element);
+  public MiniList<E> join(@NotNull E element) {
+    return new MiniSingleton<>(element);
   }
 
 
   @NotNull
   @Override
-  public Couple<MiniList<E>> splitAt(int position) {
+  public Couple<MiniSet<E>> splitAt(int position) {
     if (position != 0) throw new IndexOutOfBoundsException("Attempted to split an empty list on position " + position);
     return Couple.of(this,this);
   }
 
   @NotNull
   @Override
-  public Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate) {
+  public Couple<MiniSet<E>> splitWhen(@NotNull Predicate<E> predicate) {
     return Couple.of(this,this);
   }
 
 
   @NotNull @Contract(pure = true)
   @Override
-  public MiniList<E> except(@Nullable Object element) {
+  public MiniSet<E> except(@Nullable Object element) {
     return this;
   }
 
@@ -113,7 +120,7 @@ final class MiniEmptyList<E> extends MiniList<E> {
 
   @NotNull
   @Override
-  public MiniList<E> subList(int fromIndex, int toIndex) {
+  public MiniSet<E> subList(int fromIndex, int toIndex) {
     if (fromIndex == toIndex) return this;
     else throw new IndexOutOfBoundsException("Attempted to get a non-empty subList from the empty list");
   }
@@ -140,7 +147,7 @@ final class MiniEmptyList<E> extends MiniList<E> {
 
   @NotNull
   @Override
-  public <T> T[] toArray(T[] a) {
+  public <T> T[] toArray(@NotNull T[] a) {
     if (a.length > 0) Arrays.fill(a, null);
     return a;
   }

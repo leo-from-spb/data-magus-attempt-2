@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
  **/
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  MiniEmptyListTest.class,
+  MiniEmptyTest.class,
+  MiniSingletonTest.class,
   MiniRegularListTest.class,
   MiniTest.class
 })

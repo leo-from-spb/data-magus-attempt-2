@@ -50,8 +50,8 @@ public class MiniBuilder<E> {
   @NotNull
   public MiniList<E> buildList() {
     int size = container.size();
-    if (size == 0) return MiniEmptyList.one();
-    if (size == 1) return new MiniSingletonList<>((E)container.get(0));
+    if (size == 0) return MiniEmpty.one();
+    if (size == 1) return new MiniSingleton<>((E)container.get(0));
 
     Object[] array = container.toArray();
     MiniRegularList<E> list = new MiniRegularList<>(array, 0, size, false);

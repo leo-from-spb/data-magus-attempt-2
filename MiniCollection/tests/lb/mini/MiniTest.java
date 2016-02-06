@@ -2,13 +2,14 @@ package lb.mini;
 
 import org.junit.Test;
 
-import static lb.mini.Mini.emptyList;
-import static lb.mini.Mini.listOf;
+import static lb.mini.Mini.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 
 public class MiniTest {
+
+  //// LISTS \\\\
 
   @Test
   public void listOf_size() {
@@ -89,25 +90,25 @@ public class MiniTest {
 
 
   @Test
-  public void grow_sequentially() {
-    MiniList<String> x = emptyList();
+  public void join_sequentially() {
+    MiniList<String> x = empty();
 
-    x = x.grow("A"); assertThat(x).containsExactly("A");
-    x = x.grow("B"); assertThat(x).containsExactly("A","B");
-    x = x.grow("C"); assertThat(x).containsExactly("A","B","C");
-    x = x.grow("D"); assertThat(x).containsExactly("A","B","C","D");
-    x = x.grow("E"); assertThat(x).containsExactly("A","B","C","D","E");
-    x = x.grow("F"); assertThat(x).containsExactly("A","B","C","D","E","F");
-    x = x.grow("G"); assertThat(x).containsExactly("A","B","C","D","E","F","G");
-    x = x.grow("H"); assertThat(x).containsExactly("A","B","C","D","E","F","G","H");
-    x = x.grow("I"); assertThat(x).containsExactly("A","B","C","D","E","F","G","H","I");
-    x = x.grow("J"); assertThat(x).containsExactly("A","B","C","D","E","F","G","H","I","J");
+    x = x.join("A"); assertThat(x).containsExactly("A");
+    x = x.join("B"); assertThat(x).containsExactly("A", "B");
+    x = x.join("C"); assertThat(x).containsExactly("A", "B", "C");
+    x = x.join("D"); assertThat(x).containsExactly("A", "B", "C", "D");
+    x = x.join("E"); assertThat(x).containsExactly("A", "B", "C", "D", "E");
+    x = x.join("F"); assertThat(x).containsExactly("A", "B", "C", "D", "E", "F");
+    x = x.join("G"); assertThat(x).containsExactly("A", "B", "C", "D", "E", "F", "G");
+    x = x.join("H"); assertThat(x).containsExactly("A", "B", "C", "D", "E", "F", "G", "H");
+    x = x.join("I"); assertThat(x).containsExactly("A", "B", "C", "D", "E", "F", "G", "H", "I");
+    x = x.join("J"); assertThat(x).containsExactly("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
   }
 
 
   @Test
   public void except_null() {
-    MiniList<Object> list0 = emptyList();
+    MiniList<Object> list0 = empty();
     assertThat(list0.except(null)).isSameAs(list0);
 
     MiniList<Object> list1 = listOf(1111L);
@@ -119,7 +120,7 @@ public class MiniTest {
 
   @Test
   public void except_unexistent() {
-    MiniList<Object> list0 = emptyList();
+    MiniList<Object> list0 = empty();
     assertThat(list0.except(-1234L)).isSameAs(list0);
 
     MiniList<Object> list1 = listOf(1111L);
@@ -128,6 +129,46 @@ public class MiniTest {
     MiniList<Object> list2 = listOf(1111L, 2222L);
     assertThat(list2.except(1234L)).isSameAs(list2);
   }
+
+
+  //// SETS \\\\
+
+  @Test
+  public void setOf_size() {
+    assertThat(setOf().size()).isZero();
+    assertThat(setOf("A").size()).isEqualTo(1);
+    assertThat(setOf("A","B").size()).isEqualTo(2);
+    assertThat(setOf("A","B","C").size()).isEqualTo(3);
+    assertThat(setOf("A","B","C","D").size()).isEqualTo(4);
+    assertThat(setOf("A","B","C","D","E").size()).isEqualTo(5);
+    assertThat(setOf("A","B","C","D","E","F").size()).isEqualTo(6);
+  }
+
+  @Test
+  public void setOf_content() {
+    assertThat(setOf()).isEmpty();
+    assertThat(setOf("A")).containsExactly("A");
+    assertThat(setOf("A","B")).containsExactly("A","B");
+    assertThat(setOf("A","B","C")).containsExactly("A","B","C");
+    assertThat(setOf("A","B","C","D")).containsExactly("A","B","C","D");
+    assertThat(setOf("A","B","C","D","E")).containsExactly("A","B","C","D","E");
+    assertThat(setOf("A","B","C","D","E","F")).containsExactly("A","B","C","D","E","F");
+  }
+
+  @Test
+  public void setOf_contains() {
+    assertThat(setOf("A").contains("A")).isTrue();
+    assertThat(setOf("A","B").contains("A")).isTrue();
+    assertThat(setOf("A","B").contains("B")).isTrue();
+    assertThat(setOf("A","B","C").contains("A")).isTrue();
+    assertThat(setOf("A","B","C").contains("B")).isTrue();
+    assertThat(setOf("A","B","C").contains("C")).isTrue();
+    assertThat(setOf("A","B","C","D").contains("A")).isTrue();
+    assertThat(setOf("A","B","C","D").contains("B")).isTrue();
+    assertThat(setOf("A","B","C","D").contains("C")).isTrue();
+    assertThat(setOf("A","B","C","D").contains("D")).isTrue();
+  }
+
 
 
 }

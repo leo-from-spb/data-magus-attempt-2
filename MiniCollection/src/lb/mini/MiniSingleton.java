@@ -4,8 +4,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.ListIterator;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.function.Predicate;
 
 
@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 /**
  * @author Leonid Bushuev
  **/
-final class MiniSingletonList<E> extends MiniList<E> {
+final class MiniSingleton<E> extends MiniSet<E> {
 
   //// THE STATE \\\\
 
@@ -23,17 +23,23 @@ final class MiniSingletonList<E> extends MiniList<E> {
 
   //// CONSTRUCTOR \\\\
 
-  MiniSingletonList(@NotNull final E element) {
+  MiniSingleton(@NotNull final E element) {
     this.element = element;
   }
 
+
+  @NotNull
+  @Override
+  Object[] array() {
+    throw new IllegalStateException("Internal error. Nobody should call MiniSingleton.array().");
+  }
 
 
   //// MANIPULATIONS \\\\
 
   @NotNull
   @Override
-  public MiniList<E> grow(@NotNull E element) {
+  public MiniList<E> join(@NotNull E element) {
     Object[] array = new Object[] {this.element, element, null, null};
     return new MiniRegularList<>(array, 0, 2, false);
   }
@@ -41,10 +47,10 @@ final class MiniSingletonList<E> extends MiniList<E> {
 
   @NotNull
   @Override
-  public Couple<MiniList<E>> splitAt(int position) {
+  public Couple<MiniSet<E>> splitAt(int position) {
     switch (position) {
-      case 0: return Couple.of(MiniEmptyList.one(), this);
-      case 1: return Couple.of(this, MiniEmptyList.one());
+      case 0: return Couple.of(MiniEmpty.one(), this);
+      case 1: return Couple.of(this, MiniEmpty.one());
       default: throw new IndexOutOfBoundsException("Attempted to split a list of one element at position " + position);
     }
   }
@@ -52,16 +58,16 @@ final class MiniSingletonList<E> extends MiniList<E> {
 
   @NotNull
   @Override
-  public Couple<MiniList<E>> splitWhen(@NotNull Predicate<E> predicate) {
-    if (predicate.test(element))  return Couple.of(this, MiniEmptyList.one());
-    else                          return Couple.of(MiniEmptyList.one(), this);
+  public Couple<MiniSet<E>> splitWhen(@NotNull Predicate<E> predicate) {
+    if (predicate.test(element))  return Couple.of(this, MiniEmpty.one());
+    else                          return Couple.of(MiniEmpty.one(), this);
   }
 
 
   @NotNull
   @Override
-  public MiniList<E> except(@Nullable Object element) {
-    if (this.element.equals(element))  return MiniEmptyList.one();
+  public MiniSet<E> except(@Nullable Object element) {
+    if (this.element.equals(element))  return MiniEmpty.one();
     else                               return this;
   }
 
@@ -154,11 +160,48 @@ final class MiniSingletonList<E> extends MiniList<E> {
   }
 
 
+  @Override
+  public Spliterator<E> spliterator() {
+    return Collections.singleton(element).spliterator();
+  }
+
+
   @NotNull
   @Override
-  public MiniList<E> subList(int fromIndex, int toIndex) {
+  public MiniSet<E> subList(int fromIndex, int toIndex) {
     if (fromIndex == 0 && toIndex == 1) return this;
-    if (fromIndex == toIndex) return MiniEmptyList.one();
+    if (fromIndex == toIndex) return MiniEmpty.one();
     throw new IndexOutOfBoundsException("The constant list contains only one element.");
   }
+
+
+  @NotNull
+  @Override
+  public Object[] toArray() {
+    return new Object[] {element};
+  }
+
+
+  @NotNull
+  @Override
+  public <T> T[] toArray(@NotNull T[] a) {
+    int capacity = a.length;
+    switch (capacity) {
+      case 0:
+        final Class<?> componentType = a.getClass().getComponentType();
+        //noinspection unchecked
+        T[] newArray = (T[]) Array.newInstance(componentType, 1);
+        Array.set(newArray, 0, element);
+        return newArray;
+      case 1:
+        Array.set(a, 0, element);
+        return a;
+      default:
+        Array.set(a, 0, element);
+        Arrays.fill(a, 1, a.length, null);
+        return a;
+    }
+  }
+
+
 }

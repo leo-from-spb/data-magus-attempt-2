@@ -6,9 +6,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 
-public class MiniEmptyListTest {
+public class MiniEmptyTest {
 
-  private final MiniList<Object> empty = MiniEmptyList.one();
+  private final MiniList<Object> empty = MiniEmpty.one();
 
 
   @Test
