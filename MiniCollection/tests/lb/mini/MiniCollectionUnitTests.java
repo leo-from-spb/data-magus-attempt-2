@@ -14,6 +14,7 @@ import org.junit.runners.Suite;
   MiniEmptyTest.class,
   MiniSingletonTest.class,
   MiniRegularListTest.class,
-  MiniTest.class
+  MiniTest.class,
+  MiniKoTest.class
 })
 public class MiniCollectionUnitTests {}
