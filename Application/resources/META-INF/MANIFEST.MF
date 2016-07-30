@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Application-Name: DataMagus
+Main-Class: DataMagus
+

@@ -1,4 +1,5 @@
-<project name="DataMagus" basedir=".">
+<project name="DataMagus" basedir="."
+         xmlns:fx="javafx:com.sun.javafx.tools.ant">
 
   <description>
     Database Design Tool.
@@ -26,5 +27,52 @@
       </get>
     </sequential>
   </macrodef>
+
+  <property name="JAVA_HOME" value="/Library/Java/Home"/>
+
+  <property name="out.dir" value="out"/>
+  <property name="dist.dir" value="${out.dir}/dist"/>
+
+  <target name="make-dist">
+
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+             uri="javafx:com.sun.javafx.tools.ant"
+             classpath="${JAVA_HOME}/lib/ant-javafx.jar"/>
+
+    <fx:application id="datamagus"
+                    name="DataMagus"
+                    mainClass="DataMagus"/>
+
+    <fx:resources id="appRes">
+      <fx:fileset dir="${dist.dir}" includes="DataMagus.jar"/>
+      <fx:fileset dir="lib"/>
+      <fx:fileset dir="out/production/Application"/>
+    </fx:resources>
+
+    <mkdir dir="${dist.dir}"/>
+
+    <fx:jar destfile="${dist.dir}/DataMagus.jar">
+      <fx:application refid="datamagus" name="DataMagus"/>
+      <fx:resources refid="appRes"/>
+      <fileset dir="out/production/Application"/>
+    </fx:jar>
+
+    <fx:deploy outdir="${dist.dir}" embedJNLP="true"
+               outfile="DataMagus"
+               nativeBundles="dmg"> <!-- all -->
+      <fx:application refId="datamagus"/>
+      <fx:resources refid="appRes"/>
+      <fx:info title="DataMagus" vendor="Leo from Saint-Petersburg"/>
+    </fx:deploy>
+
+  </target>
+
+
+  <target name="clean">
+    <delete>
+      <fileset dir="${out.dir}" includes="**/*"/>
+    </delete>
+    <delete dir="${out.dir}"/>
+  </target>
 
 </project>
