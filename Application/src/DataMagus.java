@@ -1,10 +1,9 @@
+import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import lb.dmag.application.ui.Main;
+import lb.dmag.logging.Log;
+import lb.dmag.logging.Loggy;
 
 
 
@@ -14,39 +13,35 @@ import javafx.stage.Stage;
 public final class DataMagus extends Application
 {
 
+  public static final Loggy log = Log.JFX;
+
+
   public static void main(String[] args) {
-    Application.launch(args);
+    Thread.currentThread().setName("DataMagus-Start");
+    log.trace("Application is starting up");
+    LauncherImpl.launchApplication(DataMagus.class, null, args);
+    log.trace("Application shut down");
   }
 
 
   @Override
   public void init() throws Exception {
+    log.trace("JFX is initializing in thread %s [%d]", Thread.currentThread().getName(), Thread.currentThread().getId());
     super.init();
   }
 
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    MenuBar menuBar = new MenuBar();
-    menuBar.useSystemMenuBarProperty().set(true);
-
-    Button btn = new Button();
-    btn.setText("Just a button");
-
-    StackPane root = new StackPane();
-    root.getChildren().add(btn);
-
-    Scene scene = new Scene(root, 300, 250);
-
-    primaryStage.setScene(new Scene(new Pane(menuBar)));
-    primaryStage.setTitle("Hello World!");
-    primaryStage.setScene(scene);
+    log.trace("JFX is starting in thread %s [%d]", Thread.currentThread().getName(), Thread.currentThread().getId());
+    new Main(primaryStage);
     primaryStage.show();
   }
 
 
   @Override
   public void stop() throws Exception {
+    log.trace("JFX is stopping in thread %s [%d]", Thread.currentThread().getName(), Thread.currentThread().getId());
     super.stop();
   }
 
