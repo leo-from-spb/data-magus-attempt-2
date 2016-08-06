@@ -2,7 +2,7 @@ import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lb.dmag.application.ui.Main;
-import lb.dmag.logging.Log;
+import lb.dmag.Log;
 import lb.dmag.logging.Loggy;
 
 
@@ -13,7 +13,10 @@ import lb.dmag.logging.Loggy;
 public final class DataMagus extends Application
 {
 
-  public static final Loggy log = Log.JFX;
+  private static final Loggy log = Log.INSTANCE.getJFX();
+
+
+  public static Stage primaryStage = null;
 
 
   public static void main(String[] args) {
@@ -33,8 +36,9 @@ public final class DataMagus extends Application
 
   @Override
   public void start(Stage primaryStage) throws Exception {
+    DataMagus.primaryStage = primaryStage;
     log.trace("JFX is starting in thread %s [%d]", Thread.currentThread().getName(), Thread.currentThread().getId());
-    new Main(primaryStage);
+    Main.init();
     primaryStage.show();
   }
 

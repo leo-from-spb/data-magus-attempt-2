@@ -1,6 +1,9 @@
 package lb.dmag.logging;
 
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import static lb.dmag.logging.LogInternalUtil.handleException;
 
 
@@ -35,19 +38,19 @@ public interface Loggy {
 
   ////// USEFUL METHODS \\\\\\
 
-  default void log(LogLevel level, String text) {
+  default void log(@NotNull LogLevel level, @Nullable String text) {
     if (getLevel().ordinal() >= level.ordinal() && text != null) {
       sendMessage(level, text);
     }
   }
 
-  default void log(LogLevel level, String template, Object... params) {
+  default void log(@NotNull LogLevel level, @Nullable String template, Object... params) {
     if (getLevel().ordinal() >= level.ordinal() && template != null) {
       sendMessage(level, String.format(template, params));
     }
   }
 
-  default void log(LogLevel level, Throwable exception, String text) {
+  default void log(@NotNull LogLevel level, @Nullable Throwable exception, @Nullable String text) {
     if (getLevel().ordinal() >= level.ordinal()) {
       String message;
       if (exception != null && text != null) {
@@ -70,7 +73,7 @@ public interface Loggy {
     }
   }
 
-  default void log(LogLevel level, Throwable exception, String template, Object... params) {
+  default void log(@NotNull LogLevel level, @Nullable Throwable exception, @Nullable String template, Object... params) {
     if (getLevel().ordinal() >= level.ordinal()) {
       String text = template != null ? String.format(template, params) : null;
       log(level, exception, text);

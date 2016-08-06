@@ -1,19 +1,24 @@
 package lb.dmag.logging;
 
+import org.jetbrains.annotations.NotNull;
+
+
+
 /**
  * @author Leonid Bushuev
  **/
-final class SimpleLogs {
+public final class SimpleLogs {
 
 
-  LogLevel myLevel = LogLevel.Trace;
+  private LogLevel myLevel = LogLevel.Trace;
 
-  boolean myDebug = true;
+  private boolean myDebug = true;
 
-  int mySystemErrorThreshold = LogLevel.Error.ordinal();
+  private int mySystemErrorThreshold = LogLevel.Error.ordinal();
 
 
-  Loggy getLoggy(String name) {
+  @NotNull
+  public Loggy getLoggy(String name) {
     return new SystemOutputLoggy(name);
   }
 
