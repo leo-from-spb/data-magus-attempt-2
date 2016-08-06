@@ -5,10 +5,27 @@
     Database Design Tool.
   </description>
 
-  <target name="get-libs">
+  <property name="JAVA_HOME" value="/Library/Java/Home"/>
+
+  <property name="out.dir" value="out"/>
+  <property name="jars.dir" value="${out.dir}/jars"/>
+  <property name="dist.dir" value="${out.dir}/dist"/>
+
+  <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+           uri="javafx:com.sun.javafx.tools.ant"
+           classpath="${JAVA_HOME}/lib/ant-javafx.jar"/>
+
+  <fx:application id="datamagus"
+                  name="DataMagus"
+                  mainClass="DataMagus"/>
+
+
+
+  <target name="get-libs" description="downloads library files">
     <mkdir dir="lib/pro"/>
     <mkdir dir="lib/test"/>
     <mkdir dir="lib/tools"/>
+    <get-from-central scope="pro" path="org/jetbrains/annotations/15.0/annotations-15.0"/>
     <get-from-central scope="test" path="junit/junit/4.12/junit-4.12"/>
     <get-from-central scope="test" path="org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3"/>
     <get-from-central scope="test" path="org/assertj/assertj-core/3.2.0/assertj-core-3.2.0"/>
@@ -28,47 +45,53 @@
     </sequential>
   </macrodef>
 
-  <property name="JAVA_HOME" value="/Library/Java/Home"/>
+  <target name="jar" description="makes the main jar">
 
-  <property name="out.dir" value="out"/>
-  <property name="dist.dir" value="${out.dir}/dist"/>
-
-  <target name="make-dist">
-
-    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
-             uri="javafx:com.sun.javafx.tools.ant"
-             classpath="${JAVA_HOME}/lib/ant-javafx.jar"/>
-
-    <fx:application id="datamagus"
-                    name="DataMagus"
-                    mainClass="DataMagus"/>
-
-    <fx:resources id="appRes">
-      <fx:fileset dir="${dist.dir}" includes="DataMagus.jar"/>
-      <fx:fileset dir="lib"/>
-      <fx:fileset dir="out/production/Application"/>
+    <fx:resources id="production-libs">
+      <fileset dir="lib/pro">
+        <include name="*.jar"/>
+        <exclude name="*-sources.jar"/>
+        <exclude name="*-javadoc.jar"/>
+      </fileset>
     </fx:resources>
 
-    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${jars.dir}"/>
 
-    <fx:jar destfile="${dist.dir}/DataMagus.jar">
+    <fx:jar destfile="${jars.dir}/DataMagus.jar">
       <fx:application refid="datamagus" name="DataMagus"/>
-      <fx:resources refid="appRes"/>
+      <fx:resources refid="production-libs"/>
       <fileset dir="out/production/Application"/>
     </fx:jar>
 
-    <fx:deploy outdir="${dist.dir}" embedJNLP="true"
+  </target>
+
+
+  <target name="make-dist" description="make distributive files"
+          depends="jar">
+
+    <fx:resources id="production-jars">
+      <fileset file="${jars.dir}/DataMagus.jar"/>
+      <fileset dir="lib/pro">
+        <include name="*.jar"/>
+        <exclude name="*-sources.jar"/>
+        <exclude name="*-javadoc.jar"/>
+      </fileset>
+    </fx:resources>
+
+    <fx:deploy outdir="${dist.dir}"
                outfile="DataMagus"
-               nativeBundles="dmg"> <!-- all -->
+               nativeBundles="dmg"
+               embedJNLP="true" >
       <fx:application refId="datamagus"/>
-      <fx:resources refid="appRes"/>
+      <fx:resources refid="production-jars"/>
       <fx:info title="DataMagus" vendor="Leo from Saint-Petersburg"/>
+      <!--<fx:platform j2se="1.8"/>-->
     </fx:deploy>
 
   </target>
 
 
-  <target name="clean">
+  <target name="clean" description="clean the working copy">
     <delete includeemptydirs="true" quiet="true">
       <fileset dir="${out.dir}" includes="**/*"/>
     </delete>
