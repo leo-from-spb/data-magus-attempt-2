@@ -1,6 +1,7 @@
 import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import lb.dmag.application.DataMagusApplication;
 import lb.dmag.application.ui.Main;
 import lb.dmag.Log;
 import lb.dmag.logging.Loggy;
@@ -13,7 +14,7 @@ import lb.dmag.logging.Loggy;
 public final class DataMagus extends Application
 {
 
-  private static final Loggy log = Log.INSTANCE.getJFX();
+  private static final Loggy log = Log.INSTANCE.getJfx();
 
 
   public static Stage primaryStage = null;
@@ -22,7 +23,9 @@ public final class DataMagus extends Application
   public static void main(String[] args) {
     Thread.currentThread().setName("DataMagus-Start");
     log.trace("Application is starting up");
+    DataMagusApplication.startUp();
     LauncherImpl.launchApplication(DataMagus.class, null, args);
+    DataMagusApplication.shutDown();
     log.trace("Application shut down");
   }
 

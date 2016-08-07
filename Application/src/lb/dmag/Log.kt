@@ -12,7 +12,8 @@ object Log
     private val sl = SimpleLogs()
 
 
-    val JFX = sl.getLoggy("JFX")
+    val App = sl.getLoggy("App")
+    val Jfx = sl.getLoggy("Jfx")
 
 
 }
