@@ -1,0 +1,35 @@
+repositories {
+  mavenCentral()
+}
+
+
+configurations {
+  pro {
+
+  }
+  test {
+
+  }
+  tools {
+
+  }
+}
+
+
+dependencies {
+  pro "org.jetbrains.kotlin:kotlin-stdlib:1.0.6",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.0.6:sources",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.0.6:javadoc"
+}
+
+
+task getLibsPro(type:Copy) {
+  from configurations.pro
+  into "Java/lib/pro/"
+}
+
+task getLibs {
+  getLibsPro.execute()
+}
+
+
