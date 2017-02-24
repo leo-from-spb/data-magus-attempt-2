@@ -4,12 +4,11 @@
 *.ear
 *.zip
 
-lib
-out
-dist
-coverage
-*/target
-.gradle
+Java/lib
+Java/out
+Java/dist
+Java/coverage
+Java/.gradle
 
 .idea/workspace.xml
 .idea/uiDesigner.xml
@@ -18,7 +17,4 @@ coverage
 .idea/copyright
 .idea/dataSources.local.xml
 
-test-db.config
-test-db.properties
-pom.xml.versionsBackup
-
+Java/test-db
