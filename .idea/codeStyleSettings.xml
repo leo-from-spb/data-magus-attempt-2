@@ -2,8 +2,93 @@
 <project version="4">
   <component name="ProjectCodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
-      <value />
+      <value>
+        <option name="OTHER_INDENT_OPTIONS">
+          <value>
+            <option name="INDENT_SIZE" value="4" />
+            <option name="CONTINUATION_INDENT_SIZE" value="8" />
+            <option name="TAB_SIZE" value="8" />
+            <option name="USE_TAB_CHARACTER" value="false" />
+            <option name="SMART_TABS" value="false" />
+            <option name="LABEL_INDENT_SIZE" value="0" />
+            <option name="LABEL_INDENT_ABSOLUTE" value="false" />
+            <option name="USE_RELATIVE_INDENTS" value="false" />
+          </value>
+        </option>
+        <option name="LINE_SEPARATOR" value="&#10;" />
+        <option name="PREFER_LONGER_NAMES" value="false" />
+        <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
+          <value>
+            <package name="java.awt" withSubpackages="false" static="true" />
+            <package name="javax.swing" withSubpackages="false" static="true" />
+          </value>
+        </option>
+        <option name="FORMATTER_TAGS_ENABLED" value="true" />
+        <option name="FORMATTER_ON_TAG" value="(@formatter:on|≥≥|﹈)" />
+        <option name="FORMATTER_OFF_TAG" value="(@formatter:off|≤≤|﹇)" />
+        <option name="FORMATTER_TAGS_ACCEPT_REGEXP" value="true" />
+        <option name="ALIGN_GROUP_FIELD_DECLARATIONS" value="true" />
+        <JetCodeStyleSettings>
+          <option name="SPACE_BEFORE_EXTEND_COLON" value="false" />
+          <option name="SPACE_AFTER_EXTEND_COLON" value="false" />
+          <option name="ALIGN_IN_COLUMNS_CASE_BRANCH" value="true" />
+          <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="3" />
+          <option name="IMPORT_NESTED_CLASSES" value="true" />
+        </JetCodeStyleSettings>
+        <Properties>
+          <option name="SPACES_AROUND_KEY_VALUE_DELIMITER" value="true" />
+          <option name="KEEP_BLANK_LINES" value="true" />
+        </Properties>
+        <codeStyleSettings language="JAVA">
+          <option name="LINE_COMMENT_AT_FIRST_COLUMN" value="false" />
+          <option name="BLOCK_COMMENT_AT_FIRST_COLUMN" value="false" />
+          <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+          <option name="BLANK_LINES_AFTER_PACKAGE" value="2" />
+          <option name="BLANK_LINES_BEFORE_IMPORTS" value="3" />
+          <option name="BLANK_LINES_AFTER_IMPORTS" value="3" />
+          <option name="BLANK_LINES_AROUND_CLASS" value="3" />
+          <option name="BLANK_LINES_AROUND_METHOD" value="2" />
+          <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+          <option name="ELSE_ON_NEW_LINE" value="true" />
+          <option name="WHILE_ON_NEW_LINE" value="true" />
+          <option name="CATCH_ON_NEW_LINE" value="true" />
+          <option name="FINALLY_ON_NEW_LINE" value="true" />
+          <option name="ALIGN_MULTILINE_TERNARY_OPERATION" value="true" />
+          <option name="ALIGN_MULTILINE_THROWS_LIST" value="true" />
+          <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
+          <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
+          <option name="KEEP_SIMPLE_LAMBDAS_IN_ONE_LINE" value="true" />
+          <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
+          <option name="KEEP_MULTIPLE_EXPRESSIONS_IN_ONE_LINE" value="true" />
+          <indentOptions>
+            <option name="CONTINUATION_INDENT_SIZE" value="4" />
+            <option name="TAB_SIZE" value="8" />
+            <option name="USE_RELATIVE_INDENTS" value="true" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="kotlin">
+          <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
+          <option name="ELSE_ON_NEW_LINE" value="true" />
+          <option name="WHILE_ON_NEW_LINE" value="true" />
+          <option name="CATCH_ON_NEW_LINE" value="true" />
+          <option name="FINALLY_ON_NEW_LINE" value="true" />
+          <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+          <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
+          <option name="ALIGN_MULTILINE_EXTENDS_LIST" value="true" />
+          <option name="SPACE_AROUND_ADDITIVE_OPERATORS" value="false" />
+          <option name="SPACE_AROUND_MULTIPLICATIVE_OPERATORS" value="false" />
+          <indentOptions>
+            <option name="CONTINUATION_INDENT_SIZE" value="4" />
+            <option name="TAB_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="yaml">
+          <indentOptions>
+            <option name="INDENT_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+      </value>
     </option>
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Idea Team" />
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
   </component>
 </project>

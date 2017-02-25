@@ -14,7 +14,7 @@ infix fun <S> S?.mustBe(expected: S): S {
 }
 
 
-infix fun <S: CharSequence> S?.mustBeLike(expected: String): S {
+infix fun <S:CharSequence> S?.mustBeLike(expected: String): S {
     assertNotNull(this)
     this!!
     val s = this.toString()
