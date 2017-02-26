@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Java/EleText/EleText.iml" filepath="$PROJECT_DIR$/Java/EleText/EleText.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java/KoAssertions/KoAssertions.iml" filepath="$PROJECT_DIR$/Java/KoAssertions/KoAssertions.iml" />
       <module fileurl="file://$PROJECT_DIR$/Java/KoUtils/KoUtils.iml" filepath="$PROJECT_DIR$/Java/KoUtils/KoUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" filepath="$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" />
     </modules>
   </component>
 </project>

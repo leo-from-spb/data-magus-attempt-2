@@ -1,9 +1,27 @@
 package lb.util.functions
 
-import lb.util.koassertions.mustBe
+import lb.util.koassertions.*
 import org.junit.jupiter.api.Test
 
 class StringFunTest {
+
+    @Test
+    fun expandTabs_basic() {
+        // ﹇
+        "no tabs"     .expandTabs()  mustBe  "no tabs"
+        "\t"          .expandTabs()  mustBe  "        "
+        "\t\t"        .expandTabs()  mustBe  "                "
+        "123\t9"      .expandTabs()  mustBe  "123     9"
+        "123\t9\txyz" .expandTabs()  mustBe  "123     9       xyz"
+        // ﹈
+    }
+
+    @Test
+    fun expandTabs_saveRef() {
+        val s = "no tabs"
+        s.expandTabs()  mustBeRef  s
+    }
+
 
     @Test
     fun splitToPairBy_basic() {

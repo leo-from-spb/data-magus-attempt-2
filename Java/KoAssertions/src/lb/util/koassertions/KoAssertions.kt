@@ -6,10 +6,31 @@ package lb.util.koassertions
 import org.junit.jupiter.api.Assertions.*
 
 
-infix fun <S> S?.mustBe(expected: S): S {
+infix fun <T> T?.mustBe(expected: T): T {
     assertNotNull(this)
     this!!
     assertEquals(expected, this)
+    return this
+}
+
+infix fun <E> Array<E>?.mustBe(expected: Array<E>): Array<E> {
+    assertNotNull(this)
+    this!!
+    assertArrayEquals(expected, this)
+    return this
+}
+
+
+infix inline fun <reified E> Collection<E>?.mustBe(expected: Array<E>): Collection<E> {
+    assertArrayEquals(expected, this?.toTypedArray())
+    return this!!
+}
+
+
+infix fun <O> O?.mustBeRef(expected: O): O {
+    assertNotNull(this)
+    this!!
+    assertSame(expected, this)
     return this
 }
 
@@ -47,18 +68,40 @@ infix fun <T> Array<T>?.mustHasSize(size: Int): Array<T> {
 
 object BeNull
 object BeNotNull
+object BeEmpty
 object BeNotEmpty
 
-infix fun <S> S?.must(`_`: BeNull) {
+infix fun <T> T?.must(`_`: BeNull) {
     assertNull(this)
 }
 
-infix fun <S> S?.must(`_`: BeNotNull): S {
+infix fun <T> T?.must(`_`: BeNotNull): T {
     assertNotNull(this)
     return this!!
 }
 
-infix fun <S:Collection<*>> S?.must(`_`: BeNotEmpty): S {
+infix fun <E> Array<E>?.must(`_`: BeEmpty): Array<E>? {
+    if (this != null && this.isNotEmpty()) {
+        fail("Expected an empty array but it is not")
+    }
+    return this
+}
+
+infix fun <E> Array<E>?.must(`_`: BeNotEmpty): Array<E> {
+    assertNotNull(this)
+    this!!
+    assertTrue(this.isNotEmpty())
+    return this
+}
+
+infix fun <E:Collection<*>> E?.must(`_`: BeEmpty): E? {
+    if (this != null && this.isNotEmpty()) {
+        fail("Expected an empty collection but it is not")
+    }
+    return this
+}
+
+infix fun <E:Collection<*>> E?.must(`_`: BeNotEmpty): E {
     assertNotNull(this)
     this!!
     assertTrue(this.isNotEmpty())
