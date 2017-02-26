@@ -9,15 +9,16 @@ data class EleError (
      * Can be with a relative path.
      * The string delimiter is always '/' independent of the file system.
      */
-    val file: String,
+    val fileName: String,
 
     /**
-     * The line number, starts with 1.
+     * The line number, starting with 1.
      */
-    val line: Int,
+    val lineNr: Int,
 
     /**
-     * The position where the error occurred, or 0 if unknown
+     * The position where the error occurred, starting with 1.
+     * Zero if unknown.
      */
     val pos: Int = 0,
 

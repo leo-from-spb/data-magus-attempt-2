@@ -4,6 +4,12 @@
 package lb.util.functions
 
 
+/**
+ * The "End of Text" marker.
+ */
+const val EOT = "\uFFFF"
+
+
 val String?.nullize: String?
     /*inline*/ get() = if (this != null && this.length > 0) this else null
 
@@ -46,3 +52,15 @@ infix fun String?.splitToPairBy(delimiter: Char): Pair<String?,String?> {
 
 
 val pairOfStringNulls: Pair<String?,String?> = Pair<String?,String?>(null,null)
+
+
+fun String.addSuffix(suffix: String, condition: (String) -> Boolean = {!it.endsWith(suffix)}): String {
+    val met = condition(this)
+    return if (met) this + suffix else this
+}
+
+
+fun String.lastPart(delimiter: Char): String {
+    val d = this.indexOf(delimiter)
+    return if (d >= 0) this.substring(d+1) else  this
+}

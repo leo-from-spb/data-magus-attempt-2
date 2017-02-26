@@ -1,5 +1,7 @@
 package lb.eletext
 
+import lb.util.functions.EOT
+
 /**
  * One string of the Elegant Text file.
  */
@@ -10,7 +12,7 @@ data class EleLine (
      * Can be with a relative path.
      * The string delimiter is always '/' independent of the file system.
      */
-    val file: String,
+    val fileName: String,
 
     /**
      * The line number, starts with 1.
@@ -53,6 +55,14 @@ data class EleLine (
                 0    -> rawString
                 else -> rawString.substring(offset)
             }
+
+    /**
+     * It is the "End of Text" marker.
+     * 
+     * Neither [rawString] nor [meanString] contain meaningful data.
+     */
+    val eot: Boolean
+        get() = rawString === EOT
 
 }
 
