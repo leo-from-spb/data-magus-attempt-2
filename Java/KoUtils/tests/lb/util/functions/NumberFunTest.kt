@@ -3,7 +3,7 @@ package lb.util.functions
 import lb.util.koassertions.mustBe
 import org.junit.jupiter.api.Test
 
-class NumberFunTest1 {
+class NumberFunTest {
 
     @Test
     fun forceToRange_int() {
