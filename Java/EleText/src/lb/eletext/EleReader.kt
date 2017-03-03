@@ -73,7 +73,7 @@ open class EleReader {
         try {
             processOneString(fileName, lineNr, string)
         }
-        catch (e: Exception) {
+        catch (e: Throwable) {
             registerException(fileName, lineNr, e)
         }
     }
@@ -98,8 +98,8 @@ open class EleReader {
     }
 
 
-    private fun registerException(fileName: String, lineNr: Int, e: Exception) {
-        val message = (e.message ?: "Unknown error") + " (${e.javaClass.simpleName})"
+    private fun registerException(fileName: String, lineNr: Int, exception: Throwable) {
+        val message = (exception.message ?: "Unknown error")+" (${exception.javaClass.simpleName})"
         val ee = EleError(fileName, lineNr, message = message)
         registerError(ee)
     }

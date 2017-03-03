@@ -17,9 +17,9 @@ configurations {
 
 
 dependencies {
-  pro "org.jetbrains.kotlin:kotlin-stdlib:1.0.6",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.0.6:sources",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.0.6:javadoc"
+  pro "org.jetbrains.kotlin:kotlin-stdlib:1.1.0",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.1.0:sources",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.1.0:javadoc"
 
   test "org.junit.platform:junit-platform-commons:1.0.0-M3",
        "org.junit.platform:junit-platform-commons:1.0.0-M3:sources",
