@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Java/Common/EleText/EleText.iml" filepath="$PROJECT_DIR$/Java/Common/EleText/EleText.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" filepath="$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" filepath="$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Common/EleText/EleText.iml" filepath="$PROJECT_DIR$/Java/Common/EleText/EleText.iml" group="Commons" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" filepath="$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" group="Commons" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" filepath="$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" group="Commons" />
       <module fileurl="file://$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" filepath="$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" />
     </modules>
   </component>
