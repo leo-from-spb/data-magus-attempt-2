@@ -17,9 +17,9 @@ configurations {
 
 
 dependencies {
-  pro "org.jetbrains.kotlin:kotlin-stdlib:1.1.0",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.1.0:sources",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.1.0:javadoc"
+  pro "org.jetbrains.kotlin:kotlin-stdlib:1.1.1",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.1.1:sources",
+      "org.jetbrains.kotlin:kotlin-stdlib:1.1.1:javadoc"
 
   test "org.junit.platform:junit-platform-commons:1.0.0-M3",
        "org.junit.platform:junit-platform-commons:1.0.0-M3:sources",
@@ -33,6 +33,10 @@ dependencies {
        "org.junit.jupiter:junit-jupiter-api:5.0.0-M3:sources",
        "org.junit.jupiter:junit-jupiter-engine:5.0.0-M3",
        "org.junit.jupiter:junit-jupiter-engine:5.0.0-M3:sources"
+
+  tools "org.jetbrains.kotlin:kotlin-reflect:1.1.1", 
+        "org.jetbrains.kotlin:kotlin-reflect:1.1.1:sources",
+        "org.jetbrains.kotlin:kotlin-reflect:1.1.1:javadoc"
 }
 
 
@@ -46,9 +50,15 @@ task getLibsTest(type:Copy) {
   into "Java/lib/test/"
 }
 
+task getLibsTools(type:Copy) {
+  from configurations.tools
+  into "Java/lib/tools/"
+}
+
 task getLibs {
   dependsOn << getLibsPro
   dependsOn << getLibsTest
+  dependsOn << getLibsTools
 }
 
 
