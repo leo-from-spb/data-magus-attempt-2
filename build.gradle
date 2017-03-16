@@ -1,64 +1,69 @@
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 
 configurations {
-  pro {
+    pro {
 
-  }
-  test {
+    }
+    test {
 
-  }
-  tools {
+    }
+    tools {
 
-  }
+    }
 }
+
+
+def kotlinVersion         = "1.1.1"
+def junitPlatformVersion  = "1.0.0-M3"
+def junitJupiterVersion   = "5.0.0-M3"
 
 
 dependencies {
-  pro "org.jetbrains.kotlin:kotlin-stdlib:1.1.1",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.1.1:sources",
-      "org.jetbrains.kotlin:kotlin-stdlib:1.1.1:javadoc"
+    pro     "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion:sources",
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion:javadoc"
 
-  test "org.junit.platform:junit-platform-commons:1.0.0-M3",
-       "org.junit.platform:junit-platform-commons:1.0.0-M3:sources",
-       "org.junit.platform:junit-platform-engine:1.0.0-M3",
-       "org.junit.platform:junit-platform-engine:1.0.0-M3:sources",
-       "org.junit.platform:junit-platform-runner:1.0.0-M3",
-       "org.junit.platform:junit-platform-runner:1.0.0-M3:sources",
-       "org.junit.platform:junit-platform-launcher:1.0.0-M3",
-       "org.junit.platform:junit-platform-launcher:1.0.0-M3:sources",
-       "org.junit.jupiter:junit-jupiter-api:5.0.0-M3",
-       "org.junit.jupiter:junit-jupiter-api:5.0.0-M3:sources",
-       "org.junit.jupiter:junit-jupiter-engine:5.0.0-M3",
-       "org.junit.jupiter:junit-jupiter-engine:5.0.0-M3:sources"
+    test    "org.junit.platform:junit-platform-commons:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-commons:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-engine:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-engine:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-runner:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-runner:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-launcher:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-launcher:$junitPlatformVersion:sources",
+            "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion",
+            "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion:sources",
+            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion",
+            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion:sources"
 
-  tools "org.jetbrains.kotlin:kotlin-reflect:1.1.1", 
-        "org.jetbrains.kotlin:kotlin-reflect:1.1.1:sources",
-        "org.jetbrains.kotlin:kotlin-reflect:1.1.1:javadoc"
+    tools   "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
+            "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion:sources",
+            "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion:javadoc"
 }
 
 
-task getLibsPro(type:Copy) {
-  from configurations.pro
-  into "Java/lib/pro/"
+task getLibsPro(type: Copy) {
+    from configurations.pro
+    into "Java/lib/pro/"
 }
 
-task getLibsTest(type:Copy) {
-  from configurations.test
-  into "Java/lib/test/"
+task getLibsTest(type: Copy) {
+    from configurations.test - configurations.pro
+    into "Java/lib/test/"
 }
 
-task getLibsTools(type:Copy) {
-  from configurations.tools
-  into "Java/lib/tools/"
+task getLibsTools(type: Copy) {
+    from configurations.tools - configurations.pro
+    into "Java/lib/tools/"
 }
 
 task getLibs {
-  dependsOn << getLibsPro
-  dependsOn << getLibsTest
-  dependsOn << getLibsTools
+    dependsOn << getLibsPro
+    dependsOn << getLibsTest
+    dependsOn << getLibsTools
 }
 
 
