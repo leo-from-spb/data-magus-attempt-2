@@ -1,0 +1,42 @@
+@.prefix = Con
+
+
+Element: NamedMatter
+
+
+AbstractArea: Element
+    + Domains
+    + Entities
+
+
+Concept: AbstractArea
+    + SubjectAreas
+    + Domains
+    + Entities
+
+
+SubjectArea: AbstractArea
+    + Domains
+    + Entities
+
+
+TypedElement: Element
+    . Type: ConceptType
+    
+
+Domain: TypedElement
+
+
+Entity: Element
+
+
+Categorization: Element
+
+
+Attribute: Element
+
+
+Relation: Element
+
+
+

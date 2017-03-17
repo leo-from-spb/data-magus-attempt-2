@@ -1,0 +1,21 @@
+Model Structure Examples
+------------------------
+
+    Project
+      Concept ??
+        SubjectArea
+          Entity
+          Entity
+      Database
+        Schema
+          Table
+          View
+      Album
+        Page
+
+    Farm
+      Server
+        Database
+          Schema
+            Table
+            View

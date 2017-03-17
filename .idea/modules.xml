@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/Java/Common/EleText/EleText.iml" filepath="$PROJECT_DIR$/Java/Common/EleText/EleText.iml" group="Commons" />
       <module fileurl="file://$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" filepath="$PROJECT_DIR$/Java/Common/KoAssertions/KoAssertions.iml" group="Commons" />
       <module fileurl="file://$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" filepath="$PROJECT_DIR$/Java/Common/KoUtils/KoUtils.iml" group="Commons" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Model/ModelAbstracts/ModelAbstracts.iml" filepath="$PROJECT_DIR$/Java/Model/ModelAbstracts/ModelAbstracts.iml" group="Model" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Model/ModelEssence/ModelIntf.iml" filepath="$PROJECT_DIR$/Java/Model/ModelEssence/ModelIntf.iml" group="Model" />
+      <module fileurl="file://$PROJECT_DIR$/Java/Model/ModelGen/ModelGen.iml" filepath="$PROJECT_DIR$/Java/Model/ModelGen/ModelGen.iml" group="Model" />
       <module fileurl="file://$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" filepath="$PROJECT_DIR$/Java/UnitTests/UnitTests.iml" />
     </modules>
   </component>
