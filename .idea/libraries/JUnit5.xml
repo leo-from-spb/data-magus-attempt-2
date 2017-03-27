@@ -7,7 +7,12 @@
       <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-platform-engine-1.0.0-M3.jar!/" />
       <root url="jar://$PROJECT_DIR$/Java/lib/test/opentest4j-1.0.0-M1.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-jupiter-api-5.0.0-M3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-jupiter-engine-5.0.0-M3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-platform-commons-1.0.0-M3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-platform-engine-1.0.0-M3-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-jupiter-api-5.0.0-M3-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/Java/lib/test/junit-jupiter-engine-5.0.0-M3-sources.jar!/" />

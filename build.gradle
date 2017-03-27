@@ -32,16 +32,22 @@ dependencies {
 
     test    "org.junit.platform:junit-platform-commons:$junitPlatformVersion",
             "org.junit.platform:junit-platform-commons:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-commons:$junitPlatformVersion:javadoc",
             "org.junit.platform:junit-platform-engine:$junitPlatformVersion",
             "org.junit.platform:junit-platform-engine:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-engine:$junitPlatformVersion:javadoc",
             "org.junit.platform:junit-platform-runner:$junitPlatformVersion",
             "org.junit.platform:junit-platform-runner:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-runner:$junitPlatformVersion:javadoc",
             "org.junit.platform:junit-platform-launcher:$junitPlatformVersion",
             "org.junit.platform:junit-platform-launcher:$junitPlatformVersion:sources",
+            "org.junit.platform:junit-platform-launcher:$junitPlatformVersion:javadoc",
             "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion",
             "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion:sources",
+            "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion:javadoc",
             "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion",
-            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion:sources"
+            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion:sources",
+            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion:javadoc"
 
     tools   "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
             "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion:sources",
