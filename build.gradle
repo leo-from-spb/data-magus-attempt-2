@@ -17,6 +17,7 @@ configurations {
 
 
 def kotlinVersion         = "1.1.1"
+def guavaVersion          = "21.0"
 def junitPlatformVersion  = "1.0.0-M3"
 def junitJupiterVersion   = "5.0.0-M3"
 
@@ -24,7 +25,10 @@ def junitJupiterVersion   = "5.0.0-M3"
 dependencies {
     pro     "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
             "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion:sources",
-            "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion:javadoc"
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion:javadoc",
+            "com.google.guava:guava:$guavaVersion",
+            "com.google.guava:guava:$guavaVersion:sources",
+            "com.google.guava:guava:$guavaVersion:javadoc"
 
     test    "org.junit.platform:junit-platform-commons:$junitPlatformVersion",
             "org.junit.platform:junit-platform-commons:$junitPlatformVersion:sources",
